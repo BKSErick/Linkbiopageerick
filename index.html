@@ -3,10 +3,10 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Erick Sena · Founder & Product Builder</title>
-<meta name="description" content="SAAS × Sites × Automação de Sistemas. Transformando processos em produtos." />
-<meta property="og:title" content="Erick Sena · Founder & Product Builder" />
-<meta property="og:description" content="SAAS × Sites × Automação de Sistemas. Transformando processos em produtos." />
+<title>Erick Sena · AI Architect & SaaS Builder</title>
+<meta name="description" content="Construo ativos digitais e desenho a arquitetura operacional de PMEs." />
+<meta property="og:title" content="Erick Sena · AI Architect & SaaS Builder" />
+<meta property="og:description" content="Construo ativos digitais e desenho a arquitetura operacional de PMEs." />
 <meta property="og:image" content="assets/foto-erick.png" />
 <meta name="theme-color" content="#0a0a0b" />
 <link rel="icon" href="assets/foto-erick.png" />
@@ -230,6 +230,132 @@
   @media (prefers-reduced-motion: reduce){
     .wrap > *,.links .card{animation-duration:.01s;animation-delay:0s}
   }
+
+  /* ---------- FLOATING WHATSAPP ---------- */
+  .float-wa {
+    position: fixed;
+    bottom: 24px;
+    right: 24px;
+    width: 56px;
+    height: 56px;
+    background: var(--wa);
+    color: #fff;
+    border-radius: 50%;
+    display: grid;
+    place-items: center;
+    box-shadow: 0 8px 24px rgba(37, 211, 102, .35);
+    z-index: 1000;
+    transition: transform .2s ease, box-shadow .2s ease;
+    animation: wapulse 2s infinite;
+    text-decoration: none;
+  }
+  .float-wa:hover {
+    transform: scale(1.08) translateY(-3px);
+    box-shadow: 0 12px 30px rgba(37, 211, 102, .5);
+  }
+  .float-wa:active {
+    transform: scale(1.02) translateY(-1px);
+  }
+  .float-wa svg {
+    width: 28px;
+    height: 28px;
+    fill: currentColor;
+  }
+  @keyframes wapulse {
+    0% {
+      box-shadow: 0 0 0 0 rgba(37, 211, 102, 0.6);
+    }
+    70% {
+      box-shadow: 0 0 0 14px rgba(37, 211, 102, 0);
+    }
+    100% {
+      box-shadow: 0 0 0 0 rgba(37, 211, 102, 0);
+    }
+  }
+
+  /* ---------- TOAST NOTIFICATIONS ---------- */
+  .toast-container {
+    position: fixed;
+    bottom: 24px;
+    left: 24px;
+    z-index: 1001;
+    pointer-events: none;
+    max-width: 320px;
+    width: calc(100% - 48px);
+  }
+  .toast {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    background: rgba(22, 22, 24, 0.85);
+    backdrop-filter: blur(12px) saturate(160%);
+    -webkit-backdrop-filter: blur(12px) saturate(160%);
+    border: 1px solid rgba(255, 255, 255, .08);
+    border-left: 3px solid #00f0ff;
+    padding: 14px 16px;
+    border-radius: var(--radius);
+    box-shadow: 0 12px 30px rgba(0, 0, 0, .4);
+    opacity: 0;
+    transform: translateY(24px) scale(0.95);
+    transition: transform .4s cubic-bezier(0.16, 1, 0.3, 1), opacity .4s ease;
+    margin-top: 10px;
+    pointer-events: auto;
+  }
+  .toast.show {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+  .toast-badge {
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    background: rgba(0, 240, 255, 0.1);
+    color: #00f0ff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+  .toast-content {
+    flex: 1;
+  }
+  .toast-title {
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--text);
+  }
+  .toast-sub {
+    font-size: 11px;
+    color: var(--muted);
+    margin-top: 2px;
+  }
+  .toast-time {
+    font-size: 9px;
+    color: var(--muted-2);
+    margin-top: 3px;
+    display: block;
+  }
+
+  /* Adjustments for smaller screens */
+  @media (max-width: 600px) {
+    .float-wa {
+      bottom: 16px;
+      right: 16px;
+      width: 50px;
+      height: 50px;
+    }
+    .float-wa svg {
+      width: 24px;
+      height: 24px;
+    }
+    .toast-container {
+      bottom: 80px;
+      left: 16px;
+      right: 16px;
+      max-width: none;
+      width: calc(100% - 32px);
+    }
+  }
 </style>
 </head>
 <body>
@@ -245,10 +371,9 @@
       <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l2.4 1.7 2.9-.3 1.2 2.7 2.6 1.4-.6 2.9 1.6 2.5-1.9 2.2.2 2.9-2.8.9-1.4 2.6-2.9-.5L12 22l-2.3-1.8-2.9.5-1.4-2.6-2.8-.9.2-2.9L1 11.6l1.6-2.5-.6-2.9 2.6-1.4L5.8 2.1l2.9.3L12 2z"/><path d="M10.6 14.6l-2.3-2.3 1.1-1.1 1.2 1.2 3.4-3.4 1.1 1.1z" fill="#0a0a0b"/></svg>
     </span>
   </div>
-  <div class="role">Founder &amp; Product Builder</div>
+  <div class="role">AI Architect &amp; SaaS Builder</div>
   <p class="bio">
-    <b>SAAS × Sites × Automação de Sistemas.</b><br/>
-    Transformando processos em produtos. 🚀
+    <b>Construo ativos digitais e desenho a arquitetura operacional de PMEs.</b>
   </p>
 
   <!-- SAAS -->
@@ -316,7 +441,7 @@
   <!-- CONTATO -->
   <div class="section-label">Vamos conversar</div>
   <div class="links">
-    <a class="wa-btn" href="https://wa.me/5531991072707?text=Ol%C3%A1%20Erick!%20Cheguei%20pelo%20seu%20link%20na%20bio." target="_blank" rel="noopener">
+    <a class="wa-btn" href="https://wa.me/5531991072407?text=Ol%C3%A1%20Erick!%20Cheguei%20pelo%20seu%20link%20na%20bio." target="_blank" rel="noopener">
       <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><path d="M.057 24l1.687-6.163a11.867 11.867 0 01-1.587-5.945C.16 5.335 5.495 0 12.05 0a11.82 11.82 0 018.413 3.488 11.82 11.82 0 013.48 8.414c-.003 6.557-5.338 11.892-11.893 11.892a11.9 11.9 0 01-5.688-1.448L.057 24zM6.597 20.13c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884a9.82 9.82 0 001.519 5.26l-.999 3.648 3.97-1.207zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.501-.669-.51l-.57-.01c-.198 0-.52.074-.792.372s-1.04 1.016-1.04 2.479 1.065 2.876 1.213 3.074c.149.198 2.095 3.2 5.076 4.487.709.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.695.248-1.29.173-1.414z"/></svg>
       Falar no WhatsApp
     </a>
@@ -335,17 +460,15 @@
   <!-- SOBRE -->
   <div class="section-label">Sobre</div>
   <div class="about">
-    <h3>Processos viram produtos. ⚙️→📦</h3>
+    <h3>Engenharia de Ativos &amp; Escala Operacional. ⚙️</h3>
     <p>
-      Eu construo SaaS, sites e automações que tiram a operação do improviso.
-      Diagnóstico, protótipo e produto no ar. Rápido, do jeito que o seu negócio precisa.
-      Se você tem um processo travado, provavelmente dá pra transformar em sistema.
+      Desenho a arquitetura lógica de PMEs. Minha missão é eliminar a ineficiência de planilhas manuais e processos burros através de sistemas autônomos, integrações via n8n/Make e SaaS sob medida. Se a sua equipe passa o dia digitando dados e gerenciando gambiarras operacionais, eu transformo o seu gargalo em um ativo digital estável.
     </p>
     <div class="pillars">
-      <span class="pill">SaaS sob medida</span>
-      <span class="pill">Sites &amp; Landing Pages</span>
-      <span class="pill">Automação de operações</span>
-      <span class="pill">Produto de ponta a ponta</span>
+      <span class="pill">SaaS &amp; Sistemas</span>
+      <span class="pill">Arquitetura de IA</span>
+      <span class="pill">Bancos de Dados &amp; Pipelines</span>
+      <span class="pill">Orquestração n8n / Make</span>
     </div>
   </div>
 
@@ -353,32 +476,118 @@
   <div class="section-label">Perguntas frequentes</div>
   <div class="faq">
     <details>
-      <summary>O que exatamente você faz? <span class="plus"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12h14"/></svg></span></summary>
-      <div class="ans">Transformo processos em produtos digitais: sistemas SaaS, sites e automações sob medida. Pego aquela operação que vive no WhatsApp e na planilha e devolvo um produto que funciona sozinho.</div>
+      <summary>O que faz um AI Architect &amp; SaaS Builder? <span class="plus"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12h14"/></svg></span></summary>
+      <div class="ans">Eu desenho a arquitetura operacional e lógica de empresas. Minha função não é apenas digitar código, mas sim mapear gargalos operacionais e construir soluções integradas — desde automações de banco de dados e APIs (via n8n/Make) até plataformas SaaS completas para enxugar seus custos de back-office.</div>
     </details>
     <details>
-      <summary>Como funciona um projeto? <span class="plus"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12h14"/></svg></span></summary>
-      <div class="ans">Quatro passos: diagnóstico do processo → protótipo navegável → desenvolvimento → deploy no ar. Você acompanha cada etapa e valida antes de seguir.</div>
+      <summary>Qual a diferença para um desenvolvedor comum? <span class="plus"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12h14"/></svg></span></summary>
+      <div class="ans">Desenvolvedores tradicionais cobram por hora e constroem o que você mandar, mesmo que a ideia operacional seja ineficiente. Eu atuo no nível de processos: identifico onde a sua equipe está perdendo tempo com digitação e planilhas e crio sistemas automatizados e centralizados que geram ROI operacional real.</div>
     </details>
     <details>
-      <summary>Em quanto tempo fica pronto? <span class="plus"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12h14"/></svg></span></summary>
-      <div class="ans">Um MVP funcional costuma sair em semanas, não meses. O escopo a gente fecha junto no diagnóstico inicial.</div>
+      <summary>Como funciona o Diagnóstico Operacional? <span class="plus"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12h14"/></svg></span></summary>
+      <div class="ans">É a nossa etapa inicial. Mapeamos os fluxos de trabalho da sua empresa para expor falhas ocultas, integrações quebradas e gargalos humanos. A partir disso, desenho a arquitetura do sistema e propomos uma implementação pragmática e rápida, baseada no que realmente acelera a escala.</div>
     </details>
     <details>
-      <summary>Quanto custa? <span class="plus"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12h14"/></svg></span></summary>
-      <div class="ans">Depende do escopo e da complexidade. Me chama no WhatsApp com uma ideia do que precisa e eu te passo um orçamento direto.</div>
+      <summary>Como funciona o desenvolvimento e implantação? <span class="plus"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12h14"/></svg></span></summary>
+      <div class="ans">Dividimos em quatro fases rápidas: Mapeamento de Processos → Protótipo de Fluxo e Interface → Desenvolvimento Integrado → Entrega em Produção com monitoramento de logs. Você acompanha a arquitetura sendo montada em tempo real, com total transparência.</div>
     </details>
     <details>
-      <summary>Você atende a minha empresa? <span class="plus"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12h14"/></svg></span></summary>
-      <div class="ans">Trabalho com negócios que querem digitalizar e automatizar a operação, de cenografia a recuperadora industrial. Se tem processo, dá pra construir sistema.</div>
+      <summary>Para que tipo de negócio você constrói essas soluções? <span class="plus"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12h14"/></svg></span></summary>
+      <div class="ans">Startups, agências de alta escala e empresas prestadoras de serviço faturando R$ 30k+ a R$ 100k+/mês. Se o seu crescimento está travado porque seu time operacional passa horas copiando e colando informações de uma plataforma para outra, o seu negócio está pronto para as minhas soluções.</div>
     </details>
   </div>
 
   <footer>
-    © <span id="year"></span> Erick Sena · <a href="https://wa.me/5531991072707" target="_blank" rel="noopener">Vamos construir algo</a>
+    © <span id="year"></span> Erick Sena · <a href="https://wa.me/5531991072407" target="_blank" rel="noopener">Vamos construir algo</a>
   </footer>
 
 </main>
-<script>document.getElementById('year').textContent=new Date().getFullYear();</script>
+
+<!-- Floating WhatsApp Button -->
+<a href="https://wa.me/5531991072407?text=Ol%C3%A1%20Erick!%20Cheguei%20pelo%20seu%20link%20na%20bio." class="float-wa" target="_blank" rel="noopener" aria-label="Falar no WhatsApp">
+  <svg viewBox="0 0 24 24"><path d="M.057 24l1.687-6.163a11.867 11.867 0 01-1.587-5.945C.16 5.335 5.495 0 12.05 0a11.82 11.82 0 018.413 3.488 11.82 11.82 0 013.48 8.414c-.003 6.557-5.338 11.892-11.893 11.892a11.9 11.9 0 01-5.688-1.448L.057 24zM6.597 20.13c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884a9.82 9.82 0 001.519 5.26l-.999 3.648 3.97-1.207zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.501-.669-.51l-.57-.01c-.198 0-.52.074-.792.372s-1.04 1.016-1.04 2.479 1.065 2.876 1.213 3.074c.149.198 2.095 3.2 5.076 4.487.709.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.695.248-1.29.173-1.414z"/></svg>
+</a>
+
+<!-- Toast Notification Container for Social Proof -->
+<div class="toast-container" id="toast-container">
+  <div class="toast" id="toast-notification">
+    <div class="toast-badge">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+    </div>
+    <div class="toast-content">
+      <div class="toast-title" id="toast-title">Empresa X</div>
+      <div class="toast-sub" id="toast-sub">Fechou seu diagnóstico operacional gratuito</div>
+      <span class="toast-time" id="toast-time">há 3 minutos</span>
+    </div>
+  </div>
+</div>
+
+<script>
+  document.getElementById('year').textContent = new Date().getFullYear();
+
+  // Social Proof Notifications logic
+  const companies = [
+    "Logitech Brasil",
+    "GTHouse Operações",
+    "Metalúrgica Metalthec",
+    "Via Br Cenografia",
+    "Agência ScaleUp B2B",
+    "Alpha Business Academy",
+    "Soluções Industriais Flex",
+    "Startup OStrack Gestão",
+    "BKS Grow Sistemas",
+    "Backstagefy Hub"
+  ];
+
+  const subtexts = [
+    "realizou o Diagnóstico Operacional Grátis",
+    "mapeou seus gargalos operacionais",
+    "identificou 4 gargalos de digitação manual",
+    "integrou o faturamento automático via API",
+    "solicitou a arquitetura de banco de dados",
+    "economizou 12 horas semanais de back-office"
+  ];
+
+  const times = [
+    "agora mesmo",
+    "há 1 minuto",
+    "há 2 minutos",
+    "há 3 minutos",
+    "há 4 minutos",
+    "há 5 minutos"
+  ];
+
+  const toast = document.getElementById('toast-notification');
+  const toastTitle = document.getElementById('toast-title');
+  const toastSub = document.getElementById('toast-sub');
+  const toastTime = document.getElementById('toast-time');
+
+  function showNotification() {
+    const randomCompany = companies[Math.floor(Math.random() * companies.length)];
+    const randomSubtext = subtexts[Math.floor(Math.random() * subtexts.length)];
+    const randomTime = times[Math.floor(Math.random() * times.length)];
+
+    toastTitle.textContent = randomCompany;
+    toastSub.textContent = randomSubtext;
+    toastTime.textContent = randomTime;
+
+    toast.classList.add('show');
+
+    // Hide toast after 6 seconds
+    setTimeout(() => {
+      toast.classList.remove('show');
+    }, 6000);
+  }
+
+  // Show first notification after 8 seconds of load
+  setTimeout(() => {
+    showNotification();
+  }, 8000);
+
+  // Set interval to show notification every 4 minutes (240000ms)
+  setInterval(() => {
+    showNotification();
+  }, 240000);
+</script>
 </body>
 </html>
