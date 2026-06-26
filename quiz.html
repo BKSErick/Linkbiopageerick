@@ -1,0 +1,724 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Diagnóstico Operacional · Erick Sena</title>
+<meta name="description" content="Descubra em 1 minuto onde estão os gargalos manuais e a ineficiência de processos da sua empresa." />
+<link rel="icon" href="assets/foto-erick.png" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+<style>
+  :root {
+    --bg: #0a0a0b;
+    --bg-soft: #121214;
+    --card: #161618;
+    --card-hover: #1d1d20;
+    --rule: rgba(255, 255, 255, 0.08);
+    --text: #f4f4f5;
+    --muted: #9a9aa3;
+    --muted-2: #6e6e78;
+    --wa: #25D366;
+    --accent: #ff0080;
+    --accent-blue: #00f0ff;
+    --radius: 18px;
+  }
+  
+  * {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+  }
+  
+  body {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    min-height: 100vh;
+    line-height: 1.5;
+    -webkit-font-smoothing: antialiased;
+    overflow-x: hidden;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+  
+  /* ambient glow */
+  body::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    z-index: 0;
+    pointer-events: none;
+    background:
+      radial-gradient(60% 40% at 50% -5%, rgba(0, 240, 255, 0.12), transparent 70%),
+      radial-gradient(50% 35% at 90% 85%, rgba(255, 0, 128, 0.09), transparent 70%),
+      radial-gradient(40% 30% at 10% 40%, rgba(255, 160, 0, 0.06), transparent 70%);
+  }
+
+  .wrap {
+    position: relative;
+    z-index: 1;
+    width: 100%;
+    max-width: 520px;
+    margin: 0 auto;
+    padding: 40px 20px;
+    display: flex;
+    flex-direction: column;
+  }
+
+  /* Header */
+  header {
+    text-align: center;
+    margin-bottom: 30px;
+  }
+  
+  .logo-back {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    text-decoration: none;
+    color: var(--muted);
+    font-size: 13px;
+    font-weight: 600;
+    margin-bottom: 16px;
+    transition: color 0.2s ease;
+  }
+  
+  .logo-back:hover {
+    color: var(--text);
+  }
+  
+  .logo-back svg {
+    transition: transform 0.2s ease;
+  }
+  
+  .logo-back:hover svg {
+    transform: translateX(-3px);
+  }
+
+  .title {
+    font-size: 26px;
+    font-weight: 800;
+    letter-spacing: -0.02em;
+    background: linear-gradient(135deg, #fff 30%, var(--muted) 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    margin-bottom: 6px;
+  }
+  
+  .subtitle {
+    font-size: 14px;
+    color: var(--muted);
+  }
+
+  /* Progress Bar */
+  .progress-container {
+    width: 100%;
+    height: 6px;
+    background: var(--rule);
+    border-radius: 999px;
+    margin-bottom: 30px;
+    overflow: hidden;
+    position: relative;
+  }
+  
+  .progress-bar {
+    height: 100%;
+    width: 0%;
+    background: linear-gradient(90deg, var(--accent-blue), var(--accent));
+    border-radius: 999px;
+    transition: width 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    box-shadow: 0 0 12px rgba(0, 240, 255, 0.4);
+  }
+
+  /* Quiz Card */
+  .quiz-card {
+    background: var(--card);
+    border: 1px solid var(--rule);
+    border-radius: var(--radius);
+    padding: 32px 24px;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .quiz-card::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 2px;
+    background: linear-gradient(90deg, transparent, rgba(0, 240, 255, 0.3), transparent);
+  }
+  
+  .step {
+    display: none;
+  }
+  
+  .step.active {
+    display: block;
+    animation: slideIn 0.4s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
+  }
+  
+  @keyframes slideIn {
+    from {
+      opacity: 0;
+      transform: translateY(12px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  .question-number {
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    color: var(--accent-blue);
+    text-transform: uppercase;
+    margin-bottom: 12px;
+  }
+  
+  .question-text {
+    font-size: 18px;
+    font-weight: 700;
+    line-height: 1.4;
+    letter-spacing: -0.015em;
+    margin-bottom: 24px;
+  }
+
+  /* Options list */
+  .options {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+  
+  .option-btn {
+    background: rgba(255, 255, 255, 0.02);
+    border: 1px solid var(--rule);
+    border-radius: 12px;
+    padding: 18px 20px;
+    color: var(--text);
+    text-align: left;
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    width: 100%;
+  }
+  
+  .option-btn:hover {
+    background: var(--card-hover);
+    border-color: rgba(255, 255, 255, 0.2);
+    transform: translateY(-2px);
+  }
+  
+  .option-btn:active {
+    transform: translateY(0);
+  }
+  
+  .radio-circle {
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    border: 2px solid var(--muted-2);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    transition: all 0.2s ease;
+  }
+  
+  .option-btn:hover .radio-circle {
+    border-color: var(--text);
+  }
+  
+  .option-btn.selected {
+    background: rgba(0, 240, 255, 0.05);
+    border-color: var(--accent-blue);
+    box-shadow: 0 0 15px rgba(0, 240, 255, 0.1) inset;
+  }
+  
+  .option-btn.selected .radio-circle {
+    border-color: var(--accent-blue);
+    background: var(--accent-blue);
+    box-shadow: 0 0 8px var(--accent-blue);
+  }
+
+  /* Navigation Buttons */
+  .actions {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 24px;
+    gap: 12px;
+  }
+  
+  .btn-back {
+    background: transparent;
+    border: 1px solid var(--rule);
+    color: var(--muted);
+    border-radius: 12px;
+    padding: 14px 20px;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+  }
+  
+  .btn-back:hover {
+    color: var(--text);
+    border-color: rgba(255, 255, 255, 0.16);
+  }
+  
+  .btn-next {
+    background: var(--text);
+    color: var(--bg);
+    border: none;
+    border-radius: 12px;
+    padding: 14px 28px;
+    font-size: 14px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    flex-grow: 1;
+    text-align: center;
+  }
+  
+  .btn-next:hover {
+    filter: brightness(0.9);
+    transform: translateY(-1px);
+  }
+
+  /* Loader State */
+  .loader-container {
+    display: none;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 40px 0;
+    text-align: center;
+  }
+  
+  .loader-spinner {
+    position: relative;
+    width: 64px;
+    height: 64px;
+    margin-bottom: 24px;
+  }
+  
+  .loader-circle {
+    position: absolute;
+    inset: 0;
+    border-radius: 50%;
+    border: 3px solid rgba(255, 255, 255, 0.03);
+    border-top-color: var(--accent-blue);
+    animation: spin 1s linear infinite;
+  }
+  
+  .loader-circle-inner {
+    position: absolute;
+    inset: 8px;
+    border-radius: 50%;
+    border: 3px solid rgba(255, 255, 255, 0.03);
+    border-bottom-color: var(--accent);
+    animation: spinReverse 1.5s linear infinite;
+  }
+  
+  @keyframes spin {
+    to { transform: rotate(360deg); }
+  }
+  
+  @keyframes spinReverse {
+    to { transform: rotate(-360deg); }
+  }
+  
+  .loader-status {
+    font-size: 14px;
+    color: var(--muted);
+    font-weight: 600;
+    letter-spacing: -0.01em;
+    min-height: 24px;
+  }
+
+  /* Result/Success Card */
+  .result-container {
+    display: none;
+    text-align: center;
+    animation: slideIn 0.5s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
+  }
+  
+  .result-icon {
+    width: 64px;
+    height: 64px;
+    background: rgba(0, 240, 255, 0.1);
+    color: var(--accent-blue);
+    border-radius: 50%;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 20px;
+    box-shadow: 0 0 20px rgba(0, 240, 255, 0.2);
+  }
+  
+  .result-title {
+    font-size: 20px;
+    font-weight: 800;
+    letter-spacing: -0.02em;
+    margin-bottom: 12px;
+  }
+  
+  .result-desc {
+    font-size: 14px;
+    color: var(--muted);
+    line-height: 1.6;
+    margin-bottom: 28px;
+  }
+  
+  .wa-btn {
+    position: relative;
+    overflow: hidden;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 11px;
+    background: var(--wa);
+    color: #06310f;
+    text-decoration: none;
+    font-size: 16px;
+    font-weight: 800;
+    padding: 18px;
+    border-radius: 14px;
+    box-shadow: 0 12px 30px rgba(37, 211, 102, 0.3);
+    transition: all 0.2s ease;
+  }
+  
+  .wa-btn::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    width: 55%;
+    background: linear-gradient(110deg, transparent, rgba(255, 255, 255, 0.4), transparent);
+    transform: translateX(-180%);
+    animation: sweep 3.6s ease-in-out infinite;
+  }
+  
+  @keyframes sweep {
+    0%, 55% { transform: translateX(-180%); }
+    100% { transform: translateX(320%); }
+  }
+  
+  .wa-btn:hover {
+    transform: translateY(-3px);
+    filter: brightness(1.05);
+    box-shadow: 0 16px 36px rgba(37, 211, 102, 0.4);
+  }
+
+  footer {
+    margin-top: 30px;
+    font-size: 12px;
+    color: var(--muted-2);
+    text-align: center;
+  }
+  
+  footer a {
+    color: var(--muted);
+    text-decoration: none;
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+  
+  <!-- Header -->
+  <header>
+    <a href="index.html" class="logo-back">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/></svg>
+      Voltar para a Bio
+    </a>
+    <h1 class="title">Diagnóstico Operacional</h1>
+    <p class="subtitle">Identifique gargalos manuais e ineficiências em 60 segundos</p>
+  </header>
+
+  <!-- Progress Bar -->
+  <div class="progress-container">
+    <div class="progress-bar" id="progressBar"></div>
+  </div>
+
+  <!-- Card Principal -->
+  <div class="quiz-card" id="quizCard">
+    
+    <!-- STEP 1: Digitação de Dados / Planilhas -->
+    <div class="step active" data-step="1">
+      <div class="question-number">Gargalo 01 / 05</div>
+      <h2 class="question-text">Sua equipe ainda gasta horas úteis semanais abrindo PDFs, e-mails ou notas fiscais e digitando dados manualmente em planilhas para atualizar relatórios?</h2>
+      <div class="options">
+        <button class="option-btn" data-value="Sim, perdemos muito tempo com digitação manual e extração de dados.">
+          <span class="radio-circle"></span>
+          <span>Sim, sofremos com digitação manual e extração de dados.</span>
+        </button>
+        <button class="option-btn" data-value="Não, nossa extração e transferência de dados de documentos são automáticas.">
+          <span class="radio-circle"></span>
+          <span>Não, nosso fluxo de dados e planilhas é 100% automatizado.</span>
+        </button>
+      </div>
+    </div>
+
+    <!-- STEP 2: Sistemas Desconectados -->
+    <div class="step" data-step="2">
+      <div class="question-number">Gargalo 02 / 05</div>
+      <h2 class="question-text">Sua empresa utiliza múltiplos sistemas (faturamento, estoque, financeiro, e-commerce) que não se conversam, exigindo que funcionários fiquem transferindo os dados manualmente?</h2>
+      <div class="options">
+        <button class="option-btn" data-value="Sim, nossos softwares são ilhas isoladas e dependemos de processos manuais.">
+          <span class="radio-circle"></span>
+          <span>Sim, nossos sistemas são desconectados e dependem de humanos.</span>
+        </button>
+        <button class="option-btn" data-value="Não, nossa infraestrutura de APIs e banco de dados conecta a operação.">
+          <span class="radio-circle"></span>
+          <span>Não, nossos sistemas conversam de forma integrada na nuvem.</span>
+        </button>
+      </div>
+    </div>
+
+    <!-- STEP 3: Relatórios Manuais -->
+    <div class="step" data-step="3">
+      <div class="question-number">Gargalo 03 / 05</div>
+      <h2 class="question-text">Toda vez que você precisa saber a lucratividade real, ROI e custos da sua empresa, você depende de relatórios gerados manualmente por funcionários em Excel ou PDF?</h2>
+      <div class="options">
+        <button class="option-btn" data-value="Sim, não temos relatórios consolidados em tempo real.">
+          <span class="radio-circle"></span>
+          <span>Sim, a tomada de decisão é lenta e dependemos de relatórios manuais.</span>
+        </button>
+        <button class="option-btn" data-value="Não, temos um dashboard em tempo real integrado direto aos dados.">
+          <span class="radio-circle"></span>
+          <span>Não, temos dashboards integrados atualizados na hora.</span>
+        </button>
+      </div>
+    </div>
+
+    <!-- STEP 4: Faturamento (Qualificação / Pocket) -->
+    <div class="step" data-step="4">
+      <div class="question-number">Qualificação / 04 de 05</div>
+      <h2 class="question-text">Qual é o faturamento mensal aproximado da sua empresa atualmente?</h2>
+      <div class="options">
+        <button class="option-btn" data-value="Abaixo de R$ 30.000,00 / mês.">
+          <span class="radio-circle"></span>
+          <span>Abaixo de R$ 30.000,00 / mês.</span>
+        </button>
+        <button class="option-btn" data-value="Entre R$ 30.000,00 e R$ 100.000,00 / mês.">
+          <span class="radio-circle"></span>
+          <span>Entre R$ 30.000,00 e R$ 100.000,00 / mês.</span>
+        </button>
+        <button class="option-btn" data-value="Acima de R$ 100.000,00 / mês.">
+          <span class="radio-circle"></span>
+          <span>Acima de R$ 100.000,00 / mês.</span>
+        </button>
+      </div>
+    </div>
+
+    <!-- STEP 5: Urgência (Priority) -->
+    <div class="step" data-step="5">
+      <div class="question-number">Urgência / 05 de 05</div>
+      <h2 class="question-text">Se pudéssemos eliminar as tarefas burocráticas repetitivas e poupar até 15 horas semanais da equipe, qual a sua prioridade para iniciar essa automação?</h2>
+      <div class="options">
+        <button class="option-btn" data-value="Imediata (próximos 15 a 30 dias).">
+          <span class="radio-circle"></span>
+          <span>Imediata (próximos 15 a 30 dias).</span>
+        </button>
+        <button class="option-btn" data-value="Médio prazo (próximos 3 meses).">
+          <span class="radio-circle"></span>
+          <span>Médio prazo (próximos 3 meses).</span>
+        </button>
+      </div>
+    </div>
+
+    <!-- Loader de Análise -->
+    <div class="loader-container" id="loaderContainer">
+      <div class="loader-spinner">
+        <div class="loader-circle"></div>
+        <div class="loader-circle-inner"></div>
+      </div>
+      <div class="loader-status" id="loaderStatus">Processando respostas...</div>
+    </div>
+
+    <!-- Resultados e Chamada do WhatsApp -->
+    <div class="result-container" id="resultContainer">
+      <div class="result-icon">
+        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+      </div>
+      <h2 class="result-title">Diagnóstico Concluído!</h2>
+      <p class="result-desc">Nossa IA analisou os processos da sua empresa. Detectamos oportunidades críticas de otimização operacional de back-office que podem salvar horas valiosas da sua equipe semanalmente.</p>
+      
+      <a class="wa-btn" id="waBtn" href="#" target="_blank" rel="noopener">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><path d="M.057 24l1.687-6.163a11.867 11.867 0 01-1.587-5.945C.16 5.335 5.495 0 12.05 0a11.82 11.82 0 018.413 3.488 11.82 11.82 0 013.48 8.414c-.003 6.557-5.338 11.892-11.893 11.892a11.9 11.9 0 01-5.688-1.448L.057 24zM6.597 20.13c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884a9.82 9.82 0 001.519 5.26l-.999 3.648 3.97-1.207zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.501-.669-.51l-.57-.01c-.198 0-.52.074-.792.372s-1.04 1.016-1.04 2.479 1.065 2.876 1.213 3.074c.149.198 2.095 3.2 5.076 4.487.709.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.695.248-1.29.173-1.414z"/></svg>
+        Ver Diagnóstico no WhatsApp
+      </a>
+    </div>
+
+    <!-- Navegação / Footer Card -->
+    <div class="actions" id="quizActions">
+      <button class="btn-back" id="btnBack" style="visibility: hidden;">Voltar</button>
+      <button class="btn-next" id="btnNext" disabled>Avançar</button>
+    </div>
+
+  </div>
+
+  <footer>
+    © <span id="year"></span> Erick Sena · <a href="index.html">Soberania Operacional</a>
+  </footer>
+
+</div>
+
+<script>
+  document.getElementById('year').textContent = new Date().getFullYear();
+
+  const totalSteps = 5;
+  let currentStep = 1;
+  const answers = {};
+
+  const steps = document.querySelectorAll('.step');
+  const progressBar = document.getElementById('progressBar');
+  const btnBack = document.getElementById('btnBack');
+  const btnNext = document.getElementById('btnNext');
+  const quizActions = document.getElementById('quizActions');
+  const quizCard = document.getElementById('quizCard');
+  
+  const loaderContainer = document.getElementById('loaderContainer');
+  const loaderStatus = document.getElementById('loaderStatus');
+  const resultContainer = document.getElementById('resultContainer');
+  const waBtn = document.getElementById('waBtn');
+
+  // Atualizar Barra de Progresso
+  function updateProgress() {
+    const percent = ((currentStep - 1) / totalSteps) * 100;
+    progressBar.style.width = percent + '%';
+  }
+
+  // Verificar se o passo atual tem uma resposta selecionada
+  function checkStepValidation() {
+    const currentStepEl = document.querySelector(`.step[data-step="${currentStep}"]`);
+    const selected = currentStepEl.querySelector('.option-btn.selected');
+    btnNext.disabled = !selected;
+  }
+
+  // Ativar um passo
+  function showStep(stepNum) {
+    steps.forEach(s => s.classList.remove('active'));
+    document.querySelector(`.step[data-step="${stepNum}"]`).classList.add('active');
+    
+    // Configura botões de navegação
+    btnBack.style.visibility = stepNum === 1 ? 'hidden' : 'visible';
+    
+    if (stepNum === totalSteps) {
+      btnNext.textContent = 'Verificar Resultados';
+    } else {
+      btnNext.textContent = 'Avançar';
+    }
+    
+    currentStep = stepNum;
+    updateProgress();
+    checkStepValidation();
+  }
+
+  // Capturar cliques nas opções
+  document.querySelectorAll('.option-btn').forEach(btn => {
+    btn.addEventListener('click', function() {
+      const parentStep = this.closest('.step');
+      const stepNum = parentStep.getAttribute('data-step');
+      
+      // Remover seleção anterior deste passo
+      parentStep.querySelectorAll('.option-btn').forEach(b => b.classList.remove('selected'));
+      
+      // Adicionar seleção ao botão clicado
+      this.classList.add('selected');
+      
+      // Salvar resposta
+      answers[stepNum] = this.getAttribute('data-value');
+      
+      checkStepValidation();
+      
+      // Efeito de auto-avançar sutil após selecionar (opcional, melhora UX)
+      setTimeout(() => {
+        if (currentStep < totalSteps) {
+          showStep(currentStep + 1);
+        }
+      }, 350);
+    });
+  });
+
+  // Ações de Navegação
+  btnBack.addEventListener('click', () => {
+    if (currentStep > 1) {
+      showStep(currentStep - 1);
+    }
+  });
+
+  btnNext.addEventListener('click', () => {
+    if (currentStep < totalSteps) {
+      showStep(currentStep + 1);
+    } else {
+      // Processo Final: Loader e geração de resultados
+      progressBar.style.width = '100%';
+      steps.forEach(s => s.classList.remove('active'));
+      quizActions.style.display = 'none';
+      loaderContainer.style.display = 'flex';
+      
+      // Simular carregamento e análise da IA
+      const loadingPhrases = [
+        "Higienizando dados de processos...",
+        "Calculando custo de inação da equipe...",
+        "Orquestrando banco de dados Supabase...",
+        "Mapeando oportunidades de APIs...",
+        "Pronto!"
+      ];
+      
+      let phraseIdx = 0;
+      const interval = setInterval(() => {
+        if (phraseIdx < loadingPhrases.length - 1) {
+          loaderStatus.textContent = loadingPhrases[phraseIdx];
+          phraseIdx++;
+        } else {
+          clearInterval(interval);
+          loaderContainer.style.display = 'none';
+          showResults();
+        }
+      }, 800);
+    }
+  });
+
+  // Gerar resultados e configurar WhatsApp
+  function showResults() {
+    resultContainer.style.display = 'block';
+    
+    // Dados para WhatsApp
+    const phone = "5531991072707";
+    const greeting = "Olá Erick, concluí o Diagnóstico Operacional. Aqui estão os dados da minha empresa:\n\n";
+    
+    const dataReport = 
+      `• Digitação manual de dados: ${answers[1].includes("Sim") ? "Sim" : "Não"}\n` +
+      `• Softwares desconectados: ${answers[2].includes("Sim") ? "Sim" : "Não"}\n` +
+      `• Relatórios manuais em planilhas: ${answers[3].includes("Sim") ? "Sim" : "Não"}\n` +
+      `• Faturamento operacional: ${answers[4]}\n` +
+      `• Urgência de escala/automação: ${answers[5]}\n\n` +
+      `Quero agendar meu diagnóstico para desenhar a arquitetura operacional livre de retrabalho manual.`;
+      
+    const encodedText = encodeURIComponent(greeting + dataReport);
+    waBtn.href = `https://wa.me/${phone}?text=${encodedText}`;
+  }
+
+  // Inicializar
+  updateProgress();
+</script>
+</body>
+</html>
