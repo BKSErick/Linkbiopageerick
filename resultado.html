@@ -4,7 +4,7 @@
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>Diagnóstico Operacional · Resultado · Erick Sena</title>
-<meta name="description" content="Resultado do seu Diagnóstico Operacional. Gargalos identificados por IA — pontos de melhoria e próximos passos para escalar sua operação." />
+<meta name="description" content="Resultado do seu Diagnóstico Operacional. Gargalos identificados por IA, pontos de melhoria e próximos passos para escalar sua operação." />
 <meta name="robots" content="noindex, nofollow" />
 <link rel="icon" href="assets/foto-erick.png" />
 <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -439,7 +439,7 @@
     <div class="score-top-line" id="scoreTopLine"></div>
     <div class="alert-badge" id="alertBadge">...</div>
     <div class="score-number-row">
-      <span class="score-main" id="scoreMain">—</span>
+      <span class="score-main" id="scoreMain">0</span>
       <span class="score-of">/5</span>
     </div>
     <div class="score-desc">gargalos operacionais identificados</div>
@@ -572,13 +572,13 @@
     4: `Alerta Operacional, ${firstName}: 4 gargalos ativos comprometem a sua escala.`,
     3: `${firstName}, identificamos 3 gargalos que drenam receita todos os meses.`,
     2: `${firstName}, 2 pontos de ineficiência identificados. Pequenos, mas custosos.`,
-    1: `${firstName}, 1 ponto de atenção detectado. Mínimo na superfície — impacto real.`,
+    1: `${firstName}, 1 ponto de atenção detectado. Mínimo na superfície, impacto real.`,
     0: `${firstName}, sua operação está acima da média. Vamos conversar sobre o próximo nível.`
   };
   const subMap = {
-    5: 'Cinco categorias de ineficiência ativas ao mesmo tempo. Esse é o perfil de empresa que cresce no braço — e eventualmente quebra o braço.',
+    5: 'Cinco categorias de ineficiência ativas ao mesmo tempo. Esse é o perfil de empresa que cresce no braço e eventualmente quebra o braço.',
     4: 'Quatro pontos de atrito operacional identificados. Cada um tem solução técnica definida. A pergunta é: quando você resolve.',
-    3: 'Três gargalos verificados. Sua empresa não está afundando — está pagando um pedágio invisível de ineficiência todo mês.',
+    3: 'Três gargalos verificados. Sua empresa não está afundando, está pagando um pedágio invisível de ineficiência todo mês.',
     2: 'Dois pontos de melhoria identificados. Você está à frente da concorrência, mas há vazamentos na operação.',
     1: 'Um ponto de atenção. Operação sólida com espaço de otimização imediata.',
     0: 'Nenhum gargalo crítico identificado. Você já entende de sistemas. A conversa agora é sobre aceleração, não remediação.'
@@ -616,7 +616,7 @@
       badge: g1Crit ? 'Gargalo Ativo' : 'Sob Controle',
       badgeClass: g1Crit ? 'b-crit' : 'b-good',
       desc: g1Crit
-        ? 'Sua equipe está sendo paga para copiar e colar dados entre sistemas. Um script de automação resolve em 2 dias o que custa R$ 3.000 a R$ 8.000/mês em horas CLT desperdiçadas. Isso não é trabalho — é custo mascarado de back-office.'
+        ? 'Sua equipe está sendo paga para copiar e colar dados entre sistemas. Um script de automação resolve em 2 dias o que custa R$ 3.000 a R$ 8.000/mês em horas CLT desperdiçadas. Isso não é trabalho, é custo mascarado de back-office.'
         : 'Fluxo de dados automatizado. Você está à frente de 83% do mercado neste ponto. Mantenha o padrão e avance para automação de decisão.',
       action: g1Crit ? '→ Automação OCR + integração via API' : null,
     },
@@ -640,8 +640,8 @@
       badge: g3Crit ? 'Gargalo Ativo' : 'Sob Controle',
       badgeClass: g3Crit ? 'b-crit' : 'b-good',
       desc: g3Crit
-        ? 'Você está tomando decisões de crescimento olhando para números de ontem, gerados por alguém que passou 3 horas no Excel. Dashboard em tempo real não é luxo — é o mínimo aceitável de gestão em 2025.'
-        : 'Dashboards em tempo real identificados. Decisão baseada em dado real — esse é o padrão certo. A próxima conversa é sobre inteligência preditiva: antecipar gargalos antes que apareçam.',
+        ? 'Você está tomando decisões de crescimento olhando para números de ontem, gerados por alguém que passou 3 horas no Excel. Dashboard em tempo real não é luxo, é o mínimo aceitável de gestão.'
+        : 'Dashboards em tempo real identificados. Decisão baseada em dado real, esse é o padrão certo. A próxima conversa é sobre inteligência preditiva: antecipar gargalos antes que apareçam.',
       action: g3Crit ? '→ Dashboard integrado ao banco de dados em tempo real' : null,
     },
     {
@@ -656,10 +656,10 @@
       badge: q4 === 'above100k' ? 'Custo Crítico' : q4 === '30k-100k' ? 'Custo Identificado' : 'Fase Inicial',
       badgeClass: q4 === 'above100k' ? 'b-crit' : 'b-warn',
       desc: q4 === 'above100k'
-        ? 'No seu nível de faturamento, cada gargalo não automatizado representa R$ 20.000 a R$ 40.000/mês em custo de oportunidade. Esse dinheiro existe — está sendo drenado pela ineficiência, não pelo mercado.'
+        ? 'No seu nível de faturamento, cada gargalo não automatizado representa R$ 20.000 a R$ 40.000/mês em custo de oportunidade. Esse dinheiro existe, está sendo drenado pela ineficiência, não pelo mercado.'
         : q4 === '30k-100k'
           ? 'Ineficiência operacional no seu faturamento custa entre R$ 5.000 e R$ 15.000/mês em horas desperdiçadas. Capital que poderia ir para crescimento está financiando retrabalho invisível.'
-          : 'Na fase de estruturação, cada real conta duas vezes. Automatizar agora é mais barato do que contratar depois — e escala sem sistema é caos com CNPJ.',
+          : 'Na fase de estruturação, cada real conta duas vezes. Automatizar agora é mais barato do que contratar depois. Escala sem sistema é caos com CNPJ.',
       action: q4 === 'below30k'
         ? '→ Arquitetura de base operacional escalável desde o início'
         : '→ Mapeamento de custo de inação operacional',
@@ -672,8 +672,8 @@
       badge: g5Crit ? 'Urgência Alta' : 'Prazo Médio',
       badgeClass: g5Crit ? 'b-crit' : 'b-warn',
       desc: g5Crit
-        ? 'Você sinalizou urgência imediata — e a análise operacional confirma. O tempo que você passa avaliando é o mesmo que seu concorrente usa implementando. Janela real: 15 a 30 dias para o primeiro sistema rodando em produção.'
-        : '3 meses é prazo suficiente para uma arquitetura completa — mas só se o planejamento começar agora. Cada mês de atraso é receita perdida mantida artificialmente pela ineficiência não resolvida.',
+        ? 'Você sinalizou urgência imediata e a análise operacional confirma. O tempo que você passa avaliando é o mesmo que seu concorrente usa implementando. Janela real: 15 a 30 dias para o primeiro sistema rodando em produção.'
+        : '3 meses é prazo suficiente para uma arquitetura completa, mas só se o planejamento começar agora. Cada mês de atraso é receita perdida mantida artificialmente pela ineficiência não resolvida.',
       action: g5Crit
         ? '→ Onboarding em 15 dias: mapeamento + protótipo + implementação'
         : '→ Roadmap de 90 dias: arquitetura completa em fases',
@@ -707,17 +707,17 @@
     high: {
       icon: '🔍',
       title: 'A leitura franca da sua operação.',
-      body: `Empresas com esse perfil estão pagando um custo invisível todos os meses. Não é drama — é matemática. Cada hora humana gasta em tarefa repetitiva é uma linha de código que você ainda não escreveu. A solução não é contratar mais gente. É parar de usar gente onde deveria ter sistema.`
+      body: `Empresas com esse perfil estão pagando um custo invisível todos os meses. Não é drama, é matemática. Cada hora humana gasta em tarefa repetitiva é uma linha de código que você ainda não escreveu. A solução não é contratar mais gente. É parar de usar gente onde deveria ter sistema.`
     },
     mid: {
       icon: '🔎',
       title: 'O que os números revelam.',
-      body: `Você tem uma base razoável. Mas razoável não escala — eficiente escala. Os gargalos identificados são pontos onde seu time está sendo usado como middleware humano entre sistemas que deveriam se comunicar automaticamente. O custo não aparece na folha de pagamento direto. Aparece no crescimento que não vem.`
+      body: `Você tem uma base razoável. Mas razoável não escala, eficiente escala. Os gargalos identificados são pontos onde seu time está sendo usado como middleware humano entre sistemas que deveriam se comunicar automaticamente. O custo não aparece na folha de pagamento direto. Aparece no crescimento que não vem.`
     },
     low: {
       icon: '✨',
       title: 'Você já está à frente.',
-      body: `Estrutura operacional acima da média do mercado. Isso significa que a conversa agora não é de remediação — é de aceleração. Onde você pode ir mais rápido? Onde ainda tem custo de oportunidade escondido? Essas são as perguntas certas para o próximo nível.`
+      body: `Estrutura operacional acima da média do mercado. Isso significa que a conversa agora não é de remediação, é de aceleração. Onde você pode ir mais rápido? Onde ainda tem custo de oportunidade escondido? Essas são as perguntas certas para o próximo nível.`
     }
   };
 
@@ -733,12 +733,12 @@
     document.getElementById('ctaTitle').textContent = score >= 3
       ? 'Pronto para eliminar esses gargalos nos próximos 30 dias?'
       : 'Quer otimizar antes do seu concorrente agir?';
-    document.getElementById('ctaSub').textContent = 'Disponibilidade de implementação limitada este mês. A conversa inicial é sem compromisso — o diagnóstico já foi feito.';
+    document.getElementById('ctaSub').textContent = 'Disponibilidade de implementação limitada este mês. A conversa inicial é sem compromisso, o diagnóstico já foi feito.';
     document.getElementById('ctaBtnText').textContent = 'Quero começar agora';
     document.getElementById('ctaNote').textContent = 'Resposta em até 2 horas em horário comercial.';
   } else {
     document.getElementById('ctaTitle').textContent = 'Vamos planejar a arquitetura da sua operação?';
-    document.getElementById('ctaSub').textContent = 'Marque uma conversa para mapear os próximos 90 dias. Sem pitch, sem pressão — só estratégia operacional.';
+    document.getElementById('ctaSub').textContent = 'Marque uma conversa para mapear os próximos 90 dias. Sem pitch, sem pressão, só estratégia operacional.';
     document.getElementById('ctaBtnText').textContent = 'Agendar conversa com Erick';
     document.getElementById('ctaNote').textContent = 'Primeira conversa gratuita. Sem compromisso.';
   }
