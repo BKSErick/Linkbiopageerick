@@ -1,0 +1,765 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Diagnóstico Operacional · Resultado · Erick Sena</title>
+<meta name="description" content="Resultado do seu Diagnóstico Operacional. Gargalos identificados por IA — pontos de melhoria e próximos passos para escalar sua operação." />
+<meta name="robots" content="noindex, nofollow" />
+<link rel="icon" href="assets/foto-erick.png" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+<style>
+  :root {
+    --bg: #0a0a0b;
+    --bg-soft: #121214;
+    --card: #161618;
+    --card-hover: #1d1d20;
+    --rule: rgba(255,255,255,.08);
+    --text: #f4f4f5;
+    --muted: #9a9aa3;
+    --muted-2: #6e6e78;
+    --wa: #25D366;
+    --accent-blue: #00f0ff;
+    --accent: #ff0080;
+    --danger: #ff3b3b;
+    --warning: #f59b3c;
+    --success: #34d27b;
+    --radius: 18px;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{-webkit-text-size-adjust:100%}
+  body {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    min-height: 100vh;
+    line-height: 1.5;
+    -webkit-font-smoothing: antialiased;
+    overflow-x: hidden;
+  }
+  body::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    z-index: 0;
+    pointer-events: none;
+    background:
+      radial-gradient(60% 40% at 50% -5%, rgba(0,240,255,.10), transparent 70%),
+      radial-gradient(50% 35% at 90% 85%, rgba(255,0,128,.08), transparent 70%),
+      radial-gradient(40% 30% at 10% 40%, rgba(255,160,0,.05), transparent 70%);
+    transition: background 1s ease;
+  }
+  body.is-danger::before {
+    background:
+      radial-gradient(60% 40% at 50% -5%, rgba(255,59,59,.14), transparent 70%),
+      radial-gradient(50% 35% at 90% 85%, rgba(255,0,128,.10), transparent 70%),
+      radial-gradient(40% 30% at 10% 40%, rgba(255,100,0,.07), transparent 70%);
+  }
+  body.is-warning::before {
+    background:
+      radial-gradient(60% 40% at 50% -5%, rgba(245,155,60,.10), transparent 70%),
+      radial-gradient(50% 35% at 90% 85%, rgba(255,0,128,.08), transparent 70%),
+      radial-gradient(40% 30% at 10% 40%, rgba(255,180,0,.08), transparent 70%);
+  }
+  body.is-ok::before {
+    background:
+      radial-gradient(60% 40% at 50% -5%, rgba(52,210,123,.08), transparent 70%),
+      radial-gradient(50% 35% at 90% 85%, rgba(0,240,255,.07), transparent 70%),
+      radial-gradient(40% 30% at 10% 40%, rgba(52,210,123,.05), transparent 70%);
+  }
+
+  .wrap {
+    position: relative;
+    z-index: 1;
+    width: 100%;
+    max-width: 540px;
+    margin: 0 auto;
+    padding: 32px 20px 80px;
+    display: flex;
+    flex-direction: column;
+  }
+
+  /* ---------- HEADER ---------- */
+  .back-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    text-decoration: none;
+    color: var(--muted);
+    font-size: 13px;
+    font-weight: 600;
+    margin-bottom: 16px;
+    transition: color .2s ease;
+    width: fit-content;
+  }
+  .back-link:hover { color: var(--text); }
+  .back-link:hover svg { transform: translateX(-3px); }
+  .back-link svg { transition: transform .2s ease; }
+
+  .ai-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: rgba(0,240,255,.08);
+    border: 1px solid rgba(0,240,255,.18);
+    border-radius: 999px;
+    padding: 6px 14px;
+    font-size: 11px;
+    font-weight: 600;
+    color: var(--accent-blue);
+    margin-bottom: 24px;
+    letter-spacing: .02em;
+    width: fit-content;
+  }
+  .pulse-dot {
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: var(--accent-blue);
+    flex-shrink: 0;
+    animation: pdot 1.5s ease-in-out infinite;
+  }
+  @keyframes pdot {
+    0%,100%{opacity:1;transform:scale(1)}
+    50%{opacity:.4;transform:scale(.7)}
+  }
+
+  /* ---------- SECTION LABEL ---------- */
+  .section-label {
+    width: 100%;
+    margin: 32px 0 14px;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: .14em;
+    text-transform: uppercase;
+    color: var(--muted-2);
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .section-label::after { content:""; flex:1; height:1px; background:var(--rule); }
+
+  /* ---------- SCORE SECTION ---------- */
+  .score-section {
+    background: var(--card);
+    border: 1px solid var(--rule);
+    border-radius: var(--radius);
+    padding: 28px 24px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+  .score-top-line {
+    position: absolute;
+    top: 0; left: 0;
+    width: 100%; height: 2px;
+  }
+  .alert-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 10px;
+    font-weight: 800;
+    letter-spacing: .1em;
+    text-transform: uppercase;
+    padding: 4px 12px;
+    border-radius: 999px;
+    margin-bottom: 20px;
+  }
+  .score-number-row {
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+    gap: 4px;
+    margin-bottom: 4px;
+  }
+  .score-main {
+    font-size: 80px;
+    font-weight: 800;
+    letter-spacing: -0.04em;
+    line-height: 1;
+  }
+  .score-of {
+    font-size: 30px;
+    font-weight: 700;
+    color: var(--muted);
+    padding-bottom: 12px;
+  }
+  .score-desc {
+    font-size: 13px;
+    color: var(--muted);
+    margin-bottom: 20px;
+  }
+  .score-dots {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+  }
+  .score-dot {
+    width: 40px;
+    height: 10px;
+    border-radius: 999px;
+    background: rgba(255,255,255,.05);
+    border: 1px solid var(--rule);
+    transition: background .3s ease, box-shadow .3s ease;
+  }
+  .score-dot.on {
+    background: var(--dot-color, var(--accent-blue));
+    border-color: var(--dot-color, var(--accent-blue));
+    box-shadow: 0 0 10px var(--dot-color, var(--accent-blue));
+  }
+
+  /* ---------- HEADLINE SECTION ---------- */
+  .headline-section { margin-bottom: 4px; }
+  .diag-headline {
+    font-size: 22px;
+    font-weight: 800;
+    letter-spacing: -0.02em;
+    line-height: 1.35;
+    margin-bottom: 10px;
+    min-height: 56px;
+  }
+  .diag-sub {
+    font-size: 14px;
+    color: var(--muted);
+    line-height: 1.65;
+  }
+
+  /* ---------- GARGALO CARDS ---------- */
+  .gargalo-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+  .gargalo-card {
+    background: var(--card);
+    border: 1px solid var(--rule);
+    border-left: 4px solid var(--muted-2);
+    border-radius: var(--radius);
+    padding: 18px 18px 18px 14px;
+    display: flex;
+    gap: 14px;
+    align-items: flex-start;
+    opacity: 0;
+    transform: translateY(14px);
+    transition: opacity .5s ease, transform .5s ease;
+  }
+  .gargalo-card.visible { opacity: 1; transform: none; }
+  .gargalo-card.crit {
+    background: linear-gradient(135deg, rgba(255,59,59,.05), var(--card));
+    border-left-color: var(--danger);
+    box-shadow: -4px 0 20px rgba(255,59,59,.12);
+  }
+  .gargalo-card.warn {
+    background: linear-gradient(135deg, rgba(245,155,60,.05), var(--card));
+    border-left-color: var(--warning);
+    box-shadow: -4px 0 20px rgba(245,155,60,.10);
+  }
+  .gargalo-card.good {
+    background: linear-gradient(135deg, rgba(52,210,123,.04), var(--card));
+    border-left-color: var(--success);
+  }
+  .g-icon { font-size: 26px; flex-shrink: 0; margin-top: 1px; }
+  .g-body { flex: 1; min-width: 0; }
+  .g-header {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 8px;
+    margin-bottom: 7px;
+    flex-wrap: wrap;
+  }
+  .g-title { font-size: 15px; font-weight: 700; letter-spacing: -0.01em; }
+  .g-badge {
+    font-size: 9px;
+    font-weight: 800;
+    letter-spacing: .08em;
+    text-transform: uppercase;
+    padding: 3px 8px;
+    border-radius: 999px;
+    white-space: nowrap;
+    flex-shrink: 0;
+  }
+  .b-crit { background:rgba(255,59,59,.14);color:#ff7070;border:1px solid rgba(255,59,59,.28); }
+  .b-warn { background:rgba(245,155,60,.14);color:#f59b3c;border:1px solid rgba(245,155,60,.28); }
+  .b-good { background:rgba(52,210,123,.12);color:#34d27b;border:1px solid rgba(52,210,123,.24); }
+  .g-desc { font-size: 13px; color: var(--muted); line-height: 1.6; }
+  .g-action {
+    font-size: 12px;
+    color: var(--accent-blue);
+    font-weight: 600;
+    margin-top: 8px;
+  }
+
+  /* ---------- INSIGHT SECTION ---------- */
+  .insight-box {
+    background: linear-gradient(180deg,rgba(255,255,255,.03),rgba(255,255,255,0));
+    border: 1px solid var(--rule);
+    border-radius: var(--radius);
+    padding: 28px 22px;
+    text-align: center;
+  }
+  .insight-icon { font-size: 28px; margin-bottom: 12px; display: block; }
+  .insight-title { font-size: 17px; font-weight: 800; letter-spacing: -0.01em; margin-bottom: 12px; }
+  .insight-body { font-size: 14px; color: var(--muted); line-height: 1.72; }
+
+  /* ---------- CTA SECTION ---------- */
+  .cta-box {
+    background: var(--card);
+    border: 1px solid var(--rule);
+    border-radius: var(--radius);
+    padding: 32px 24px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+  .cta-box::before {
+    content: "";
+    position: absolute;
+    top: 0; left: 0;
+    width: 100%; height: 2px;
+    background: linear-gradient(90deg,transparent,rgba(37,211,102,.5),transparent);
+  }
+  .cta-overline {
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: .12em;
+    text-transform: uppercase;
+    color: var(--muted-2);
+    margin-bottom: 12px;
+  }
+  .cta-title {
+    font-size: 20px;
+    font-weight: 800;
+    letter-spacing: -0.02em;
+    line-height: 1.3;
+    margin-bottom: 10px;
+  }
+  .cta-sub { font-size: 14px; color: var(--muted); margin-bottom: 24px; line-height: 1.6; }
+  .wa-btn {
+    position: relative;
+    overflow: hidden;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 11px;
+    background: var(--wa);
+    color: #06310f;
+    text-decoration: none;
+    font-size: 16px;
+    font-weight: 800;
+    padding: 18px;
+    border-radius: 14px;
+    box-shadow: 0 12px 30px rgba(37,211,102,.3);
+    transition: all .2s ease;
+  }
+  .wa-btn::after {
+    content:"";
+    position:absolute;top:0;bottom:0;left:0;width:55%;
+    background:linear-gradient(110deg,transparent,rgba(255,255,255,.4),transparent);
+    transform:translateX(-180%);
+    animation:sweep 3.6s ease-in-out infinite;
+  }
+  @keyframes sweep {
+    0%,55%{transform:translateX(-180%)}
+    100%{transform:translateX(320%)}
+  }
+  .wa-btn:hover { transform:translateY(-3px);filter:brightness(1.05);box-shadow:0 16px 36px rgba(37,211,102,.42); }
+  .cta-note { font-size: 12px; color: var(--muted-2); margin-top: 14px; }
+
+  /* ---------- FLOATING WA ---------- */
+  .float-wa {
+    position: fixed;
+    bottom: 24px; right: 24px;
+    width: 56px; height: 56px;
+    background: var(--wa);
+    color: #fff;
+    border-radius: 50%;
+    display: grid;
+    place-items: center;
+    box-shadow: 0 8px 24px rgba(37,211,102,.35);
+    z-index: 1000;
+    transition: transform .2s ease, box-shadow .2s ease;
+    animation: wapulse 2s infinite;
+    text-decoration: none;
+  }
+  .float-wa:hover { transform:scale(1.08) translateY(-3px);box-shadow:0 12px 30px rgba(37,211,102,.5); }
+  .float-wa svg { width:28px;height:28px;fill:currentColor; }
+  @keyframes wapulse {
+    0%{box-shadow:0 0 0 0 rgba(37,211,102,.6)}
+    70%{box-shadow:0 0 0 14px rgba(37,211,102,0)}
+    100%{box-shadow:0 0 0 0 rgba(37,211,102,0)}
+  }
+
+  footer { margin-top:34px;font-size:12px;color:var(--muted-2);text-align:center; }
+  footer a { color:var(--muted);text-decoration:none; }
+
+  /* ---------- ENTRANCE ANIMATIONS ---------- */
+  @keyframes rise {
+    from{opacity:0;transform:translateY(18px)}
+    to{opacity:1;transform:none}
+  }
+  .wrap > * { animation:rise .6s cubic-bezier(.2,.7,.2,1) both; }
+  .wrap > *:nth-child(1){animation-delay:.04s}
+  .wrap > *:nth-child(2){animation-delay:.08s}
+  .wrap > *:nth-child(3){animation-delay:.14s}
+  .wrap > *:nth-child(4){animation-delay:.20s}
+  .wrap > *:nth-child(5){animation-delay:.26s}
+  .wrap > *:nth-child(6){animation-delay:.32s}
+  .wrap > *:nth-child(7){animation-delay:.38s}
+  .wrap > *:nth-child(8){animation-delay:.44s}
+  .wrap > *:nth-child(n+9){animation-delay:.50s}
+
+  @media (max-width:600px) {
+    .float-wa{bottom:16px;right:16px;width:50px;height:50px;}
+    .float-wa svg{width:24px;height:24px;}
+    .score-main{font-size:64px;}
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <!-- HEADER -->
+  <a href="quiz.html" class="back-link">
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/></svg>
+    Refazer o diagnóstico
+  </a>
+
+  <div class="ai-badge">
+    <span class="pulse-dot"></span>
+    <span id="aiBadgeText">Análise gerada por IA · Carregando...</span>
+  </div>
+
+  <!-- SCORE SECTION -->
+  <div class="score-section" id="scoreSection">
+    <div class="score-top-line" id="scoreTopLine"></div>
+    <div class="alert-badge" id="alertBadge">...</div>
+    <div class="score-number-row">
+      <span class="score-main" id="scoreMain">—</span>
+      <span class="score-of">/5</span>
+    </div>
+    <div class="score-desc">gargalos operacionais identificados</div>
+    <div class="score-dots" id="scoreDots"></div>
+  </div>
+
+  <!-- HEADLINE -->
+  <div class="headline-section">
+    <h1 class="diag-headline" id="diagHeadline"></h1>
+    <p class="diag-sub" id="diagSub"></p>
+  </div>
+
+  <!-- GARGALO CARDS -->
+  <div class="section-label">Análise Detalhada · 5 Pontos Verificados</div>
+  <div class="gargalo-grid" id="gargaloGrid"></div>
+
+  <!-- INSIGHT -->
+  <div class="section-label">Leitura Operacional</div>
+  <div class="insight-box">
+    <span class="insight-icon" id="insightIcon">🔍</span>
+    <h2 class="insight-title" id="insightTitle"></h2>
+    <p class="insight-body" id="insightBody"></p>
+  </div>
+
+  <!-- CTA -->
+  <div class="section-label">Próximo Passo</div>
+  <div class="cta-box">
+    <p class="cta-overline">diagnóstico concluído</p>
+    <h2 class="cta-title" id="ctaTitle"></h2>
+    <p class="cta-sub" id="ctaSub"></p>
+    <a class="wa-btn" id="waCTABtn" href="#" target="_blank" rel="noopener">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><path d="M.057 24l1.687-6.163a11.867 11.867 0 01-1.587-5.945C.16 5.335 5.495 0 12.05 0a11.82 11.82 0 018.413 3.488 11.82 11.82 0 013.48 8.414c-.003 6.557-5.338 11.892-11.893 11.892a11.9 11.9 0 01-5.688-1.448L.057 24zM6.597 20.13c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884a9.82 9.82 0 001.519 5.26l-.999 3.648 3.97-1.207zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.501-.669-.51l-.57-.01c-.198 0-.52.074-.792.372s-1.04 1.016-1.04 2.479 1.065 2.876 1.213 3.074c.149.198 2.095 3.2 5.076 4.487.709.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.695.248-1.29.173-1.414z"/></svg>
+      <span id="ctaBtnText">Falar com Erick no WhatsApp</span>
+    </a>
+    <p class="cta-note" id="ctaNote"></p>
+  </div>
+
+  <footer>
+    © <span id="year"></span> Erick Sena · <a href="index.html">AI Architect &amp; SaaS Builder</a>
+  </footer>
+</div>
+
+<!-- Floating WhatsApp -->
+<a href="#" class="float-wa" id="floatWA" target="_blank" rel="noopener" aria-label="Falar no WhatsApp">
+  <svg viewBox="0 0 24 24"><path d="M.057 24l1.687-6.163a11.867 11.867 0 01-1.587-5.945C.16 5.335 5.495 0 12.05 0a11.82 11.82 0 018.413 3.488 11.82 11.82 0 013.48 8.414c-.003 6.557-5.338 11.892-11.893 11.892a11.9 11.9 0 01-5.688-1.448L.057 24zM6.597 20.13c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884a9.82 9.82 0 001.519 5.26l-.999 3.648 3.97-1.207zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.501-.669-.51l-.57-.01c-.198 0-.52.074-.792.372s-1.04 1.016-1.04 2.479 1.065 2.876 1.213 3.074c.149.198 2.095 3.2 5.076 4.487.709.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.695.248-1.29.173-1.414z"/></svg>
+</a>
+
+<script>
+  document.getElementById('year').textContent = new Date().getFullYear();
+
+  // ── GUARD: redirect if no data ──────────────────────────────
+  if (!localStorage.getItem('diag_name')) {
+    window.location.href = 'quiz.html';
+  }
+
+  // ── READ LOCALSTORAGE ───────────────────────────────────────
+  const name  = localStorage.getItem('diag_name')  || 'Empresário';
+  const q1    = localStorage.getItem('diag_q1')    || 'nao';
+  const q2    = localStorage.getItem('diag_q2')    || 'nao';
+  const q3    = localStorage.getItem('diag_q3')    || 'nao';
+  const q4    = localStorage.getItem('diag_q4')    || 'below30k';
+  const q5    = localStorage.getItem('diag_q5')    || 'medio-prazo';
+
+  const firstName = name.split(' ')[0];
+
+  // ── SCORE LOGIC ─────────────────────────────────────────────
+  // G1 – Digitação Manual
+  const g1Crit = q1 === 'sim';
+  // G2 – Sistemas Desconectados
+  const g2Crit = q2 === 'sim';
+  // G3 – Relatórios Manuais
+  const g3Crit = q3 === 'sim';
+  // G4 – Custo de Inação (faturamento ≥ 30k = gargalo ativo)
+  const g4Crit = q4 === 'above100k' || q4 === '30k-100k';
+  const g4Warn = q4 === 'below30k';
+  // G5 – Janela Competitiva (urgência imediata = gargalo ativo)
+  const g5Crit = q5 === 'imediata';
+
+  let score = [g1Crit, g2Crit, g3Crit, g4Crit, g5Crit].filter(Boolean).length;
+
+  // ── THEME ───────────────────────────────────────────────────
+  let dotColor, alertHTML, alertStyle, topLineStyle;
+  if (score >= 4) {
+    dotColor = '#ff3b3b';
+    alertHTML = '🔴 ALERTA CRÍTICO';
+    alertStyle = 'background:rgba(255,59,59,.15);color:#ff7070;border:1px solid rgba(255,59,59,.3);';
+    topLineStyle = 'background:linear-gradient(90deg,transparent,rgba(255,59,59,.6),transparent)';
+    document.body.classList.add('is-danger');
+  } else if (score >= 2) {
+    dotColor = '#f59b3c';
+    alertHTML = '🟡 ATENÇÃO OPERACIONAL';
+    alertStyle = 'background:rgba(245,155,60,.15);color:#f59b3c;border:1px solid rgba(245,155,60,.3);';
+    topLineStyle = 'background:linear-gradient(90deg,transparent,rgba(245,155,60,.6),transparent)';
+    document.body.classList.add('is-warning');
+  } else {
+    dotColor = '#34d27b';
+    alertHTML = '🟢 OPERAÇÃO EFICIENTE';
+    alertStyle = 'background:rgba(52,210,123,.12);color:#34d27b;border:1px solid rgba(52,210,123,.25);';
+    topLineStyle = 'background:linear-gradient(90deg,transparent,rgba(52,210,123,.6),transparent)';
+    document.body.classList.add('is-ok');
+  }
+
+  // Apply theme elements
+  document.getElementById('scoreTopLine').style.cssText = topLineStyle;
+  const alertBadge = document.getElementById('alertBadge');
+  alertBadge.textContent = alertHTML;
+  alertBadge.style.cssText = alertStyle;
+
+  // Score main number
+  const scoreMainEl = document.getElementById('scoreMain');
+  scoreMainEl.textContent = score;
+  scoreMainEl.style.color = dotColor;
+
+  // Score dots
+  const dotsEl = document.getElementById('scoreDots');
+  for (let i = 0; i < 5; i++) {
+    const dot = document.createElement('div');
+    dot.className = 'score-dot' + (i < score ? ' on' : '');
+    if (i < score) dot.style.setProperty('--dot-color', dotColor);
+    dotsEl.appendChild(dot);
+  }
+
+  // AI badge
+  const secs = Math.floor(Math.random() * 3) + 2;
+  document.getElementById('aiBadgeText').textContent = `Análise gerada por IA · ${secs}s · AIOS Operational v2.1`;
+
+  // ── HEADLINE (typewriter effect) ────────────────────────────
+  const headlineMap = {
+    5: `Diagnóstico Crítico: ${firstName}, sua empresa está operando no limite do manual.`,
+    4: `Alerta Operacional, ${firstName}: 4 gargalos ativos comprometem a sua escala.`,
+    3: `${firstName}, identificamos 3 gargalos que drenam receita todos os meses.`,
+    2: `${firstName}, 2 pontos de ineficiência identificados. Pequenos, mas custosos.`,
+    1: `${firstName}, 1 ponto de atenção detectado. Mínimo na superfície — impacto real.`,
+    0: `${firstName}, sua operação está acima da média. Vamos conversar sobre o próximo nível.`
+  };
+  const subMap = {
+    5: 'Cinco categorias de ineficiência ativas ao mesmo tempo. Esse é o perfil de empresa que cresce no braço — e eventualmente quebra o braço.',
+    4: 'Quatro pontos de atrito operacional identificados. Cada um tem solução técnica definida. A pergunta é: quando você resolve.',
+    3: 'Três gargalos verificados. Sua empresa não está afundando — está pagando um pedágio invisível de ineficiência todo mês.',
+    2: 'Dois pontos de melhoria identificados. Você está à frente da concorrência, mas há vazamentos na operação.',
+    1: 'Um ponto de atenção. Operação sólida com espaço de otimização imediata.',
+    0: 'Nenhum gargalo crítico identificado. Você já entende de sistemas. A conversa agora é sobre aceleração, não remediação.'
+  };
+
+  const headlineText = headlineMap[score] || headlineMap[0];
+  const subText = subMap[score] || subMap[0];
+
+  // Typewriter on headline for AI feel
+  const headlineEl = document.getElementById('diagHeadline');
+  function typeWriter(el, text, speed = 22) {
+    el.textContent = '';
+    let i = 0;
+    const t = setInterval(() => {
+      if (i < text.length) { el.textContent += text[i]; i++; }
+      else clearInterval(t);
+    }, speed);
+  }
+  setTimeout(() => typeWriter(headlineEl, headlineText), 400);
+  document.getElementById('diagSub').textContent = subText;
+
+  // ── GARGALO CARDS DATA ─────────────────────────────────────
+  const q4Label = q4 === 'above100k'
+    ? 'Acima de R$ 100.000/mês'
+    : q4 === '30k-100k'
+      ? 'Entre R$ 30.000 e R$ 100.000/mês'
+      : 'Abaixo de R$ 30.000/mês';
+
+  const gargalos = [
+    {
+      crit: g1Crit,
+      icon: g1Crit ? '⌨️' : '✅',
+      cardClass: g1Crit ? 'crit' : 'good',
+      title: g1Crit ? 'Retrabalho Manual Crítico' : 'Extração de Dados Automatizada',
+      badge: g1Crit ? 'Gargalo Ativo' : 'Sob Controle',
+      badgeClass: g1Crit ? 'b-crit' : 'b-good',
+      desc: g1Crit
+        ? 'Sua equipe está sendo paga para copiar e colar dados entre sistemas. Um script de automação resolve em 2 dias o que custa R$ 3.000 a R$ 8.000/mês em horas CLT desperdiçadas. Isso não é trabalho — é custo mascarado de back-office.'
+        : 'Fluxo de dados automatizado. Você está à frente de 83% do mercado neste ponto. Mantenha o padrão e avance para automação de decisão.',
+      action: g1Crit ? '→ Automação OCR + integração via API' : null,
+    },
+    {
+      crit: g2Crit,
+      icon: g2Crit ? '🔌' : '✅',
+      cardClass: g2Crit ? 'crit' : 'good',
+      title: g2Crit ? 'Ilhas de Dados Isoladas' : 'Integração de Sistemas Funcional',
+      badge: g2Crit ? 'Gargalo Ativo' : 'Sob Controle',
+      badgeClass: g2Crit ? 'b-crit' : 'b-good',
+      desc: g2Crit
+        ? 'Seus sistemas não se conversam e humanos estão fazendo o papel de API manual. Enquanto sua equipe transfere dados entre plataformas, contratos estão sendo fechados por concorrentes que já automatizaram esse fluxo inteiro.'
+        : 'Sistemas integrados detectados. Esse é o padrão mínimo para operar com eficiência. Próximo nível: automação de decisão cruzando dados de múltiplas fontes em tempo real.',
+      action: g2Crit ? '→ Integração via n8n / Make + webhooks nativos' : null,
+    },
+    {
+      crit: g3Crit,
+      icon: g3Crit ? '📊' : '✅',
+      cardClass: g3Crit ? 'crit' : 'good',
+      title: g3Crit ? 'Decisões Operando no Escuro' : 'Visibilidade Operacional em Tempo Real',
+      badge: g3Crit ? 'Gargalo Ativo' : 'Sob Controle',
+      badgeClass: g3Crit ? 'b-crit' : 'b-good',
+      desc: g3Crit
+        ? 'Você está tomando decisões de crescimento olhando para números de ontem, gerados por alguém que passou 3 horas no Excel. Dashboard em tempo real não é luxo — é o mínimo aceitável de gestão em 2025.'
+        : 'Dashboards em tempo real identificados. Decisão baseada em dado real — esse é o padrão certo. A próxima conversa é sobre inteligência preditiva: antecipar gargalos antes que apareçam.',
+      action: g3Crit ? '→ Dashboard integrado ao banco de dados em tempo real' : null,
+    },
+    {
+      crit: g4Crit,
+      icon: q4 === 'above100k' ? '💸' : q4 === '30k-100k' ? '💸' : '🏗️',
+      cardClass: g4Crit ? (q4 === 'above100k' ? 'crit' : 'warn') : 'warn',
+      title: q4 === 'above100k'
+        ? 'Vazamento Crítico de Capital'
+        : q4 === '30k-100k'
+          ? 'Custo Operacional Oculto'
+          : 'Base em Fase de Estruturação',
+      badge: q4 === 'above100k' ? 'Custo Crítico' : q4 === '30k-100k' ? 'Custo Identificado' : 'Fase Inicial',
+      badgeClass: q4 === 'above100k' ? 'b-crit' : 'b-warn',
+      desc: q4 === 'above100k'
+        ? 'No seu nível de faturamento, cada gargalo não automatizado representa R$ 20.000 a R$ 40.000/mês em custo de oportunidade. Esse dinheiro existe — está sendo drenado pela ineficiência, não pelo mercado.'
+        : q4 === '30k-100k'
+          ? 'Ineficiência operacional no seu faturamento custa entre R$ 5.000 e R$ 15.000/mês em horas desperdiçadas. Capital que poderia ir para crescimento está financiando retrabalho invisível.'
+          : 'Na fase de estruturação, cada real conta duas vezes. Automatizar agora é mais barato do que contratar depois — e escala sem sistema é caos com CNPJ.',
+      action: q4 === 'below30k'
+        ? '→ Arquitetura de base operacional escalável desde o início'
+        : '→ Mapeamento de custo de inação operacional',
+    },
+    {
+      crit: g5Crit,
+      icon: g5Crit ? '⏱️' : '🎯',
+      cardClass: g5Crit ? 'crit' : 'warn',
+      title: g5Crit ? 'Janela de Oportunidade Fechando' : 'Horizonte de Implementação Planejado',
+      badge: g5Crit ? 'Urgência Alta' : 'Prazo Médio',
+      badgeClass: g5Crit ? 'b-crit' : 'b-warn',
+      desc: g5Crit
+        ? 'Você sinalizou urgência imediata — e a análise operacional confirma. O tempo que você passa avaliando é o mesmo que seu concorrente usa implementando. Janela real: 15 a 30 dias para o primeiro sistema rodando em produção.'
+        : '3 meses é prazo suficiente para uma arquitetura completa — mas só se o planejamento começar agora. Cada mês de atraso é receita perdida mantida artificialmente pela ineficiência não resolvida.',
+      action: g5Crit
+        ? '→ Onboarding em 15 dias: mapeamento + protótipo + implementação'
+        : '→ Roadmap de 90 dias: arquitetura completa em fases',
+    },
+  ];
+
+  // ── RENDER GARGALO CARDS ────────────────────────────────────
+  const grid = document.getElementById('gargaloGrid');
+  gargalos.forEach((g, i) => {
+    const card = document.createElement('div');
+    card.className = `gargalo-card ${g.cardClass}`;
+    card.innerHTML = `
+      <div class="g-icon">${g.icon}</div>
+      <div class="g-body">
+        <div class="g-header">
+          <div class="g-title">${g.title}</div>
+          <span class="g-badge ${g.badgeClass}">${g.badge}</span>
+        </div>
+        <p class="g-desc">${g.desc}</p>
+        ${g.action ? `<div class="g-action">${g.action}</div>` : ''}
+      </div>
+    `;
+    grid.appendChild(card);
+
+    // Staggered entrance
+    setTimeout(() => card.classList.add('visible'), 300 + i * 100);
+  });
+
+  // ── INSIGHT ─────────────────────────────────────────────────
+  const insights = {
+    high: {
+      icon: '🔍',
+      title: 'A leitura franca da sua operação.',
+      body: `Empresas com esse perfil estão pagando um custo invisível todos os meses. Não é drama — é matemática. Cada hora humana gasta em tarefa repetitiva é uma linha de código que você ainda não escreveu. A solução não é contratar mais gente. É parar de usar gente onde deveria ter sistema.`
+    },
+    mid: {
+      icon: '🔎',
+      title: 'O que os números revelam.',
+      body: `Você tem uma base razoável. Mas razoável não escala — eficiente escala. Os gargalos identificados são pontos onde seu time está sendo usado como middleware humano entre sistemas que deveriam se comunicar automaticamente. O custo não aparece na folha de pagamento direto. Aparece no crescimento que não vem.`
+    },
+    low: {
+      icon: '✨',
+      title: 'Você já está à frente.',
+      body: `Estrutura operacional acima da média do mercado. Isso significa que a conversa agora não é de remediação — é de aceleração. Onde você pode ir mais rápido? Onde ainda tem custo de oportunidade escondido? Essas são as perguntas certas para o próximo nível.`
+    }
+  };
+
+  const iKey = score >= 4 ? 'high' : score >= 2 ? 'mid' : 'low';
+  document.getElementById('insightIcon').textContent = insights[iKey].icon;
+  document.getElementById('insightTitle').textContent = insights[iKey].title;
+  document.getElementById('insightBody').textContent = insights[iKey].body;
+
+  // ── CTA ─────────────────────────────────────────────────────
+  const isImmediate = q5 === 'imediata';
+
+  if (isImmediate) {
+    document.getElementById('ctaTitle').textContent = score >= 3
+      ? 'Pronto para eliminar esses gargalos nos próximos 30 dias?'
+      : 'Quer otimizar antes do seu concorrente agir?';
+    document.getElementById('ctaSub').textContent = 'Disponibilidade de implementação limitada este mês. A conversa inicial é sem compromisso — o diagnóstico já foi feito.';
+    document.getElementById('ctaBtnText').textContent = 'Quero começar agora';
+    document.getElementById('ctaNote').textContent = 'Resposta em até 2 horas em horário comercial.';
+  } else {
+    document.getElementById('ctaTitle').textContent = 'Vamos planejar a arquitetura da sua operação?';
+    document.getElementById('ctaSub').textContent = 'Marque uma conversa para mapear os próximos 90 dias. Sem pitch, sem pressão — só estratégia operacional.';
+    document.getElementById('ctaBtnText').textContent = 'Agendar conversa com Erick';
+    document.getElementById('ctaNote').textContent = 'Primeira conversa gratuita. Sem compromisso.';
+  }
+
+  // ── WHATSAPP DYNAMIC MESSAGE ────────────────────────────────
+  const phone = '5531991072407';
+  const reportLines = [
+    q1 === 'sim' ? '• Digitação manual: Sim (gargalo ativo)' : '• Digitação manual: Não',
+    q2 === 'sim' ? '• Sistemas desconectados: Sim (gargalo ativo)' : '• Sistemas desconectados: Não',
+    q3 === 'sim' ? '• Relatórios manuais: Sim (gargalo ativo)' : '• Relatórios manuais: Não',
+    `• Faturamento: ${q4Label}`,
+    `• Urgência: ${isImmediate ? 'Imediata (próximos 30 dias)' : 'Médio prazo (3 meses)'}`
+  ].join('\n');
+
+  const waMsg = isImmediate
+    ? `Olá Erick! Fiz o Diagnóstico Operacional agora e identifiquei ${score} gargalo(s) crítico(s) na minha operação.\n\nNome: ${name}\n\nDetalhes:\n${reportLines}\n\nQuero agir nos próximos 30 dias. Quando você tem agenda para conversar?`
+    : `Olá Erick! Completei o Diagnóstico Operacional. Identifiquei ${score} ponto(s) de atenção na minha empresa.\n\nNome: ${name}\n\nDetalhes:\n${reportLines}\n\nQuero entender como estruturar a arquitetura. Podemos marcar uma conversa?`;
+
+  const waURL = `https://wa.me/${phone}?text=${encodeURIComponent(waMsg)}`;
+  document.getElementById('waCTABtn').href = waURL;
+  document.getElementById('floatWA').href = waURL;
+</script>
+</body>
+</html>

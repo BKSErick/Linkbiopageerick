@@ -436,6 +436,89 @@
     color: var(--muted);
     text-decoration: none;
   }
+
+  /* ---------- LEAD CAPTURE ---------- */
+  .lead-capture {
+    text-align: center;
+    padding: 8px 0;
+  }
+  .lead-icon {
+    font-size: 40px;
+    margin-bottom: 16px;
+    display: block;
+  }
+  .lead-title {
+    font-size: 22px;
+    font-weight: 800;
+    letter-spacing: -0.02em;
+    margin-bottom: 8px;
+  }
+  .lead-subtitle {
+    font-size: 14px;
+    color: var(--muted);
+    margin-bottom: 24px;
+    line-height: 1.55;
+  }
+  .field-group {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    text-align: left;
+    margin-bottom: 14px;
+  }
+  .field-group label {
+    font-size: 11px;
+    font-weight: 700;
+    color: var(--muted);
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+  }
+  .field-group input {
+    background: rgba(255,255,255,0.04);
+    border: 1px solid var(--rule);
+    border-radius: 12px;
+    padding: 14px 16px;
+    color: var(--text);
+    font-size: 15px;
+    font-family: 'Inter', sans-serif;
+    outline: none;
+    width: 100%;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+  }
+  .field-group input:focus {
+    border-color: var(--accent-blue);
+    box-shadow: 0 0 0 3px rgba(0,240,255,0.08);
+  }
+  .field-group input::placeholder { color: var(--muted-2); }
+  .btn-generate {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    padding: 16px;
+    border-radius: 14px;
+    background: linear-gradient(135deg, var(--accent-blue), var(--accent));
+    color: #fff;
+    border: none;
+    font-family: 'Inter', sans-serif;
+    font-size: 15px;
+    font-weight: 800;
+    cursor: pointer;
+    margin-top: 8px;
+    box-shadow: 0 8px 24px rgba(0,240,255,0.2);
+    transition: transform 0.2s ease, filter 0.2s ease, box-shadow 0.2s ease;
+  }
+  .btn-generate:hover {
+    transform: translateY(-2px);
+    filter: brightness(1.1);
+    box-shadow: 0 12px 28px rgba(0,240,255,0.32);
+  }
+  .lead-privacy {
+    font-size: 11px;
+    color: var(--muted-2);
+    margin-top: 16px;
+  }
 </style>
 </head>
 <body>
@@ -541,6 +624,28 @@
           <span>Médio prazo (próximos 3 meses).</span>
         </button>
       </div>
+    </div>
+
+    <!-- Lead Capture Form -->
+    <div class="lead-capture" id="leadCapture" style="display:none;">
+      <span class="lead-icon">⚡</span>
+      <h2 class="lead-title">Seus dados estão prontos.</h2>
+      <p class="lead-subtitle">Informe seu nome e e-mail para gerar o diagnóstico personalizado da sua operação.</p>
+      <form id="leadForm">
+        <div class="field-group">
+          <label for="leadName">Seu nome</label>
+          <input type="text" id="leadName" placeholder="Ex: João Silva" required autocomplete="name" />
+        </div>
+        <div class="field-group">
+          <label for="leadEmail">E-mail profissional</label>
+          <input type="email" id="leadEmail" placeholder="joao@empresa.com.br" required autocomplete="email" />
+        </div>
+        <button type="submit" class="btn-generate" id="btnGenerate">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
+          Gerar meu Diagnóstico com IA
+        </button>
+      </form>
+      <p class="lead-privacy">🔒 Sem spam. Dados usados apenas para personalizar sua análise.</p>
     </div>
 
     <!-- Loader de Análise -->
@@ -668,54 +773,69 @@
     if (currentStep < totalSteps) {
       showStep(currentStep + 1);
     } else {
-      // Processo Final: Loader e geração de resultados
+      // Step 5 done → show lead capture form
       progressBar.style.width = '100%';
       steps.forEach(s => s.classList.remove('active'));
       quizActions.style.display = 'none';
-      loaderContainer.style.display = 'flex';
-      
-      // Simular carregamento e análise da IA
-      const loadingPhrases = [
-        "Higienizando dados de processos...",
-        "Calculando custo de inação da equipe...",
-        "Orquestrando banco de dados Supabase...",
-        "Mapeando oportunidades de APIs...",
-        "Pronto!"
-      ];
-      
-      let phraseIdx = 0;
-      const interval = setInterval(() => {
-        if (phraseIdx < loadingPhrases.length - 1) {
-          loaderStatus.textContent = loadingPhrases[phraseIdx];
-          phraseIdx++;
-        } else {
-          clearInterval(interval);
-          loaderContainer.style.display = 'none';
-          showResults();
-        }
-      }, 800);
+      const leadCapture = document.getElementById('leadCapture');
+      leadCapture.style.display = 'block';
+      leadCapture.style.animation = 'slideIn 0.4s cubic-bezier(0.2,0.8,0.2,1) forwards';
     }
   });
 
-  // Gerar resultados e configurar WhatsApp
-  function showResults() {
-    resultContainer.style.display = 'block';
-    
-    // Dados para WhatsApp
-    const phone = "5531991072407";
-    const greeting = "Olá Erick, concluí o Diagnóstico Operacional. Aqui estão os dados da minha empresa:\n\n";
-    
-    const dataReport = 
-      `• Digitação manual de dados: ${answers[1].includes("Sim") ? "Sim" : "Não"}\n` +
-      `• Softwares desconectados: ${answers[2].includes("Sim") ? "Sim" : "Não"}\n` +
-      `• Relatórios manuais em planilhas: ${answers[3].includes("Sim") ? "Sim" : "Não"}\n` +
-      `• Faturamento operacional: ${answers[4]}\n` +
-      `• Urgência de escala/automação: ${answers[5]}\n\n` +
-      `Quero agendar meu diagnóstico para desenhar a arquitetura operacional livre de retrabalho manual.`;
-      
-    const encodedText = encodeURIComponent(greeting + dataReport);
-    waBtn.href = `https://wa.me/${phone}?text=${encodedText}`;
-  }
+  // Lead form → localStorage → loader → redirect to resultado.html
+  document.getElementById('leadForm').addEventListener('submit', function(e) {
+    e.preventDefault();
+
+    const name = document.getElementById('leadName').value.trim();
+    const email = document.getElementById('leadEmail').value.trim();
+    if (!name || !email) return;
+
+    // Save name + email
+    localStorage.setItem('diag_name', name);
+    localStorage.setItem('diag_email', email);
+
+    // Map answers to simplified keys
+    const a1 = (answers[1] || '').toLowerCase();
+    const a2 = (answers[2] || '').toLowerCase();
+    const a3 = (answers[3] || '').toLowerCase();
+    const a4 = answers[4] || '';
+    const a5 = answers[5] || '';
+
+    localStorage.setItem('diag_q1', a1.startsWith('sim') ? 'sim' : 'nao');
+    localStorage.setItem('diag_q2', a2.startsWith('sim') ? 'sim' : 'nao');
+    localStorage.setItem('diag_q3', a3.startsWith('sim') ? 'sim' : 'nao');
+    localStorage.setItem('diag_q4',
+      a4.includes('100.000') && !a4.includes('30.000') ? 'above100k' :
+      a4.includes('30.000') && a4.includes('100') ? '30k-100k' : 'below30k'
+    );
+    localStorage.setItem('diag_q5', a5.toLowerCase().includes('imediata') ? 'imediata' : 'medio-prazo');
+
+    // Hide lead form, show loader
+    document.getElementById('leadCapture').style.display = 'none';
+    loaderContainer.style.display = 'flex';
+
+    const loadingPhrases = [
+      "Processando dados operacionais...",
+      "Calculando custo de inação da equipe...",
+      "Mapeando oportunidades de automação...",
+      "Consultando base de diagnósticos de IA...",
+      "Gerando análise personalizada..."
+    ];
+
+    let phraseIdx = 0;
+    loaderStatus.textContent = loadingPhrases[0];
+    phraseIdx++;
+    const interval = setInterval(() => {
+      if (phraseIdx < loadingPhrases.length) {
+        loaderStatus.textContent = loadingPhrases[phraseIdx];
+        phraseIdx++;
+      } else {
+        clearInterval(interval);
+        window.location.href = 'resultado.html';
+      }
+    }, 700);
+  });
 
   // Inicializar
   updateProgress();
