@@ -811,6 +811,33 @@
     );
     localStorage.setItem('diag_q5', a5.toLowerCase().includes('imediata') ? 'imediata' : 'medio-prazo');
 
+    // Persistir lead no Supabase (fire-and-forget, nunca bloqueia o funil)
+    (function persistLead() {
+      var SUPA_URL = 'https://sceidcbjxnaakeqpltun.supabase.co';
+      var SUPA_KEY = 'sb_publishable_FWAX52QjdxHZJU9UD1Yj8A_O6haINFL';
+      try {
+        var utm = {};
+        new URLSearchParams(window.location.search).forEach(function (v, k) { utm[k] = v; });
+        fetch(SUPA_URL + '/rest/v1/quiz_leads', {
+          method: 'POST',
+          headers: {
+            'apikey': SUPA_KEY,
+            'Authorization': 'Bearer ' + SUPA_KEY,
+            'Content-Type': 'application/json',
+            'Prefer': 'return=minimal'
+          },
+          body: JSON.stringify({
+            name: name,
+            email: email,
+            answers: { q1: a1, q2: a2, q3: a3, q4: a4, q5: a5, faixa: localStorage.getItem('diag_q4'), urgencia: localStorage.getItem('diag_q5') },
+            source: 'linkbio',
+            utm: utm
+          }),
+          keepalive: true
+        }).catch(function () {});
+      } catch (e) {}
+    })();
+
     // Hide lead form, show loader
     document.getElementById('leadCapture').style.display = 'none';
     loaderContainer.style.display = 'flex';
