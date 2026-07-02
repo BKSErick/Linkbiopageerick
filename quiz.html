@@ -1,6 +1,23 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
+<!-- Meta Pixel Code -->
+<script>
+!function(f,b,e,v,n,t,s)
+{if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+n.queue=[];t=b.createElement(e);t.async=!0;
+t.src=v;s=b.getElementsByTagName(e)[0];
+s.parentNode.insertBefore(t,s)}(window, document,'script',
+'https://connect.facebook.net/en_US/fbevents.js');
+fbq('init', '1175331711422463');
+fbq('track', 'PageView');
+</script>
+<noscript><img height="1" width="1" style="display:none"
+src="https://www.facebook.com/tr?id=1175331711422463&ev=PageView&noscript=1"
+/></noscript>
+<!-- End Meta Pixel Code -->
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>Diagnóstico Operacional · Erick Sena</title>
@@ -816,6 +833,17 @@
       var SUPA_URL = 'https://sceidcbjxnaakeqpltun.supabase.co';
       var SUPA_KEY = 'sb_publishable_FWAX52QjdxHZJU9UD1Yj8A_O6haINFL';
       try {
+        // Mesma logica de score do resultado.html (0 a 5 gargalos)
+        var f4 = localStorage.getItem('diag_q4');
+        var score = [
+          localStorage.getItem('diag_q1') === 'sim',
+          localStorage.getItem('diag_q2') === 'sim',
+          localStorage.getItem('diag_q3') === 'sim',
+          f4 === 'above100k' || f4 === '30k-100k',
+          localStorage.getItem('diag_q5') === 'imediata'
+        ].filter(Boolean).length;
+        var gargalo = score >= 4 ? 'critico' : score >= 2 ? 'atencao' : 'eficiente';
+
         var utm = {};
         new URLSearchParams(window.location.search).forEach(function (v, k) { utm[k] = v; });
         fetch(SUPA_URL + '/rest/v1/quiz_leads', {
@@ -829,12 +857,15 @@
           body: JSON.stringify({
             name: name,
             email: email,
-            answers: { q1: a1, q2: a2, q3: a3, q4: a4, q5: a5, faixa: localStorage.getItem('diag_q4'), urgencia: localStorage.getItem('diag_q5') },
+            answers: { q1: a1, q2: a2, q3: a3, q4: a4, q5: a5, faixa: f4, urgencia: localStorage.getItem('diag_q5') },
+            gargalo: gargalo,
+            score: score,
             source: 'linkbio',
             utm: utm
           }),
           keepalive: true
         }).catch(function () {});
+        if (window.fbq) fbq('track', 'Lead');
       } catch (e) {}
     })();
 
