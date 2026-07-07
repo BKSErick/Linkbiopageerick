@@ -828,10 +828,9 @@ src="https://www.facebook.com/tr?id=1175331711422463&ev=PageView&noscript=1"
     );
     localStorage.setItem('diag_q5', a5.toLowerCase().includes('imediata') ? 'imediata' : 'medio-prazo');
 
-    // Persistir lead no Supabase (fire-and-forget, nunca bloqueia o funil)
+    // Persistir lead no CRM unificado (fire-and-forget, nunca bloqueia o funil)
     (function persistLead() {
-      var SUPA_URL = 'https://sceidcbjxnaakeqpltun.supabase.co';
-      var SUPA_KEY = 'sb_publishable_FWAX52QjdxHZJU9UD1Yj8A_O6haINFL';
+      var CRM_QUIZ_ENDPOINT = 'https://crmerick.vercel.app/api/quiz-leads';
       try {
         // Mesma logica de score do resultado.html (0 a 5 gargalos)
         var f4 = localStorage.getItem('diag_q4');
@@ -846,17 +845,16 @@ src="https://www.facebook.com/tr?id=1175331711422463&ev=PageView&noscript=1"
 
         var utm = {};
         new URLSearchParams(window.location.search).forEach(function (v, k) { utm[k] = v; });
-        fetch(SUPA_URL + '/rest/v1/quiz_leads', {
+        fetch(CRM_QUIZ_ENDPOINT, {
           method: 'POST',
           headers: {
-            'apikey': SUPA_KEY,
-            'Authorization': 'Bearer ' + SUPA_KEY,
-            'Content-Type': 'application/json',
-            'Prefer': 'return=minimal'
+            'Content-Type': 'application/json'
           },
           body: JSON.stringify({
             name: name,
             email: email,
+            external_id: email,
+            quiz_id: 'diagnostico-operacional-linkbio',
             answers: { q1: a1, q2: a2, q3: a3, q4: a4, q5: a5, faixa: f4, urgencia: localStorage.getItem('diag_q5') },
             gargalo: gargalo,
             score: score,
