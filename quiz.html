@@ -559,91 +559,63 @@ src="https://www.facebook.com/tr?id=1175331711422463&ev=PageView&noscript=1"
   <!-- Card Principal -->
   <div class="quiz-card" id="quizCard">
     
-    <!-- STEP 1: Digitação de Dados / Planilhas -->
+    <!-- STEP 1: Segmento + Gargalo primario -->
     <div class="step active" data-step="1">
       <div class="question-number">Gargalo 01 / 05</div>
-      <h2 class="question-text">Sua equipe ainda gasta horas úteis semanais abrindo PDFs, e-mails ou notas fiscais e digitando dados manualmente em planilhas para atualizar relatórios?</h2>
+      <h2 class="question-text">Qual area gera mais gargalo na operacao da sua empresa hoje?</h2>
       <div class="options">
-        <button class="option-btn" data-value="Sim, perdemos muito tempo com digitação manual e extração de dados.">
-          <span class="radio-circle"></span>
-          <span>Sim, sofremos com digitação manual e extração de dados.</span>
-        </button>
-        <button class="option-btn" data-value="Não, nossa extração e transferência de dados de documentos são automáticas.">
-          <span class="radio-circle"></span>
-          <span>Não, nosso fluxo de dados e planilhas é 100% automatizado.</span>
-        </button>
+        <button class="option-btn" data-value="os_management" data-segment="industrial_b2b"><span class="radio-circle"></span><span>Gestao de ordens de servico ou manutencao - rastreio de OS, historico de equipamentos, controle de tecnicos.</span></button>
+        <button class="option-btn" data-value="data_ops" data-segment="pme_servico"><span class="radio-circle"></span><span>Processos administrativos - dados em planilhas, sistemas que nao se conversam, relatorios manuais.</span></button>
+        <button class="option-btn" data-value="client_acq" data-segment="startup"><span class="radio-circle"></span><span>Captacao e gestao de clientes - funil, CRM, follow-up, automacao de vendas.</span></button>
+        <button class="option-btn" data-value="financeiro" data-segment="pme_servico"><span class="radio-circle"></span><span>Visibilidade financeira - lucratividade, fluxo de caixa, decisao sem dados em tempo real.</span></button>
       </div>
     </div>
 
-    <!-- STEP 2: Sistemas Desconectados -->
+    <!-- STEP 2: Custo da dor -->
     <div class="step" data-step="2">
       <div class="question-number">Gargalo 02 / 05</div>
-      <h2 class="question-text">Sua empresa utiliza múltiplos sistemas (faturamento, estoque, financeiro, e-commerce) que não se conversam, exigindo que funcionários fiquem transferindo os dados manualmente?</h2>
+      <h2 class="question-text">Com que frequencia decisoes ou pedidos ficam travados porque alguem da equipe nao tem a informacao certa na hora certa?</h2>
       <div class="options">
-        <button class="option-btn" data-value="Sim, nossos softwares são ilhas isoladas e dependemos de processos manuais.">
-          <span class="radio-circle"></span>
-          <span>Sim, nossos sistemas são desconectados e dependem de humanos.</span>
-        </button>
-        <button class="option-btn" data-value="Não, nossa infraestrutura de APIs e banco de dados conecta a operação.">
-          <span class="radio-circle"></span>
-          <span>Não, nossos sistemas conversam de forma integrada na nuvem.</span>
-        </button>
+        <button class="option-btn" data-value="toda_semana" data-dor-score="2"><span class="radio-circle"></span><span>Acontece toda semana - e critico, ja perdemos dinheiro com isso.</span></button>
+        <button class="option-btn" data-value="algumas_vezes" data-dor-score="1"><span class="radio-circle"></span><span>Acontece algumas vezes por mes - preocupante, ja percebemos o impacto.</span></button>
+        <button class="option-btn" data-value="raramente" data-dor-score="0"><span class="radio-circle"></span><span>Raramente - mas quando acontece o custo e alto.</span></button>
       </div>
     </div>
 
-    <!-- STEP 3: Relatórios Manuais -->
+    <!-- STEP 3: Porte da operacao -->
     <div class="step" data-step="3">
       <div class="question-number">Gargalo 03 / 05</div>
-      <h2 class="question-text">Toda vez que você precisa saber a lucratividade real, ROI e custos da sua empresa, você depende de relatórios gerados manualmente por funcionários em Excel ou PDF?</h2>
+      <h2 class="question-text">Quantas pessoas trabalham na execucao da operacao da sua empresa -- tecnicos, equipe de campo, back-office operacional?</h2>
       <div class="options">
-        <button class="option-btn" data-value="Sim, não temos relatórios consolidados em tempo real.">
-          <span class="radio-circle"></span>
-          <span>Sim, a tomada de decisão é lenta e dependemos de relatórios manuais.</span>
-        </button>
-        <button class="option-btn" data-value="Não, temos um dashboard em tempo real integrado direto aos dados.">
-          <span class="radio-circle"></span>
-          <span>Não, temos dashboards integrados atualizados na hora.</span>
-        </button>
+        <button class="option-btn" data-value="micro"><span class="radio-circle"></span><span>1 a 5 pessoas.</span></button>
+        <button class="option-btn" data-value="pequena"><span class="radio-circle"></span><span>6 a 20 pessoas.</span></button>
+        <button class="option-btn" data-value="media"><span class="radio-circle"></span><span>Mais de 20 pessoas.</span></button>
       </div>
     </div>
 
-    <!-- STEP 4: Faturamento (Qualificação / Pocket) -->
+    <!-- STEP 4: Faturamento -->
     <div class="step" data-step="4">
-      <div class="question-number">Qualificação / 04 de 05</div>
-      <h2 class="question-text">Qual é o faturamento mensal aproximado da sua empresa atualmente?</h2>
+      <div class="question-number">Qualificacao / 04 de 05</div>
+      <h2 class="question-text">Qual e o faturamento mensal da sua empresa?</h2>
       <div class="options">
-        <button class="option-btn" data-value="Abaixo de R$ 30.000,00 / mês.">
-          <span class="radio-circle"></span>
-          <span>Abaixo de R$ 30.000,00 / mês.</span>
-        </button>
-        <button class="option-btn" data-value="Entre R$ 30.000,00 e R$ 100.000,00 / mês.">
-          <span class="radio-circle"></span>
-          <span>Entre R$ 30.000,00 e R$ 100.000,00 / mês.</span>
-        </button>
-        <button class="option-btn" data-value="Acima de R$ 100.000,00 / mês.">
-          <span class="radio-circle"></span>
-          <span>Acima de R$ 100.000,00 / mês.</span>
-        </button>
+        <button class="option-btn" data-value="below30k"><span class="radio-circle"></span><span>Abaixo de R$30.000/mes.</span></button>
+        <button class="option-btn" data-value="30k-150k"><span class="radio-circle"></span><span>Entre R$30.000 e R$150.000/mes.</span></button>
+        <button class="option-btn" data-value="above150k"><span class="radio-circle"></span><span>Acima de R$150.000/mes.</span></button>
       </div>
     </div>
 
-    <!-- STEP 5: Urgência (Priority) -->
+    <!-- STEP 5: Intencao -->
     <div class="step" data-step="5">
-      <div class="question-number">Urgência / 05 de 05</div>
-      <h2 class="question-text">Se pudéssemos eliminar as tarefas burocráticas repetitivas e poupar até 15 horas semanais da equipe, qual a sua prioridade para iniciar essa automação?</h2>
+      <div class="question-number">Intencao / 05 de 05</div>
+      <h2 class="question-text">O que voce mais quer resolver primeiro?</h2>
       <div class="options">
-        <button class="option-btn" data-value="Imediata (próximos 15 a 30 dias).">
-          <span class="radio-circle"></span>
-          <span>Imediata (próximos 15 a 30 dias).</span>
-        </button>
-        <button class="option-btn" data-value="Médio prazo (próximos 3 meses).">
-          <span class="radio-circle"></span>
-          <span>Médio prazo (próximos 3 meses).</span>
-        </button>
+        <button class="option-btn" data-value="controle_os"><span class="radio-circle"></span><span>Ter controle total das ordens de servico e historico de equipamentos em tempo real.</span></button>
+        <button class="option-btn" data-value="automacao_captacao"><span class="radio-circle"></span><span>Automatizar captacao de clientes e gestao de follow-up sem trabalho manual.</span></button>
+        <button class="option-btn" data-value="visibilidade_lucro"><span class="radio-circle"></span><span>Ter visibilidade de lucratividade e custos sem depender de planilha ou relatorio manual.</span></button>
       </div>
     </div>
 
-    <!-- Lead Capture Form -->
+    <!-- Lead Capture Form -->    <!-- Lead Capture Form -->
     <div class="lead-capture" id="leadCapture" style="display:none;">
       <span class="lead-icon">⚡</span>
       <h2 class="lead-title">Seus dados estão prontos.</h2>
@@ -754,43 +726,42 @@ src="https://www.facebook.com/tr?id=1175331711422463&ev=PageView&noscript=1"
   }
 
   // Capturar cliques nas opções
+  function trackQuizEvent(eventName, params) {
+    if (!window.fbq) return;
+    window.fbq('trackCustom', eventName, params || {});
+  }
+  function deriveQuizData() {
+    const gargaloPrimario = answers[1] || '';
+    const q1Btn = document.querySelector(`.step[data-step="1"] .option-btn[data-value="${gargaloPrimario}"]`);
+    const segment = q1Btn ? q1Btn.getAttribute('data-segment') : '';
+    const dorValue = answers[2] || '';
+    const q2Btn = document.querySelector(`.step[data-step="2"] .option-btn[data-value="${dorValue}"]`);
+    const dorScore = Number(q2Btn ? q2Btn.getAttribute('data-dor-score') : 0) || 0;
+    const equipePorte = answers[3] || '';
+    const faturamento = answers[4] || '';
+    const intencao = answers[5] || '';
+    const score = Math.min(5, Math.max(0, dorScore + (faturamento === 'above150k' || faturamento === '30k-150k' ? 1 : 0) + (equipePorte === 'pequena' || equipePorte === 'media' ? 1 : 0) + (gargaloPrimario === 'os_management' || gargaloPrimario === 'data_ops' ? 1 : 0)));
+    const gargalo = score >= 4 ? 'critico' : score >= 2 ? 'atencao' : 'eficiente';
+    return { gargaloPrimario, segment, dorValue, dorScore, equipePorte, faturamento, intencao, score, gargalo };
+  }
   document.querySelectorAll('.option-btn').forEach(btn => {
     btn.addEventListener('click', function() {
       const parentStep = this.closest('.step');
-      const stepNum = parentStep.getAttribute('data-step');
-      
-      // Remover seleção anterior deste passo
+      const stepNum = Number(parentStep.getAttribute('data-step'));
+      const value = this.getAttribute('data-value');
       parentStep.querySelectorAll('.option-btn').forEach(b => b.classList.remove('selected'));
-      
-      // Adicionar seleção ao botão clicado
       this.classList.add('selected');
-      
-      // Salvar resposta
-      answers[stepNum] = this.getAttribute('data-value');
-      
+      answers[stepNum] = value;
+      if (stepNum === 1) trackQuizEvent('QuizStart', { step: stepNum, value: value });
+      trackQuizEvent('QuizStep', { step: stepNum, value: value });
       checkStepValidation();
-      
-      // Efeito de auto-avançar sutil após selecionar (opcional, melhora UX)
-      setTimeout(() => {
-        if (currentStep < totalSteps) {
-          showStep(currentStep + 1);
-        }
-      }, 350);
+      setTimeout(() => { if (currentStep < totalSteps) showStep(currentStep + 1); }, 350);
     });
   });
-
-  // Ações de Navegação
-  btnBack.addEventListener('click', () => {
-    if (currentStep > 1) {
-      showStep(currentStep - 1);
-    }
-  });
-
+  btnBack.addEventListener('click', () => { if (currentStep > 1) showStep(currentStep - 1); });
   btnNext.addEventListener('click', () => {
-    if (currentStep < totalSteps) {
-      showStep(currentStep + 1);
-    } else {
-      // Step 5 done → show lead capture form
+    if (currentStep < totalSteps) showStep(currentStep + 1);
+    else {
       progressBar.style.width = '100%';
       steps.forEach(s => s.classList.remove('active'));
       quizActions.style.display = 'none';
@@ -799,75 +770,39 @@ src="https://www.facebook.com/tr?id=1175331711422463&ev=PageView&noscript=1"
       leadCapture.style.animation = 'slideIn 0.4s cubic-bezier(0.2,0.8,0.2,1) forwards';
     }
   });
-
-  // Lead form → localStorage → loader → redirect to resultado.html
   document.getElementById('leadForm').addEventListener('submit', function(e) {
     e.preventDefault();
-
     const name = document.getElementById('leadName').value.trim();
     const email = document.getElementById('leadEmail').value.trim();
     if (!name || !email) return;
-
-    // Save name + email
+    const quizData = deriveQuizData();
     localStorage.setItem('diag_name', name);
     localStorage.setItem('diag_email', email);
-
-    // Map answers to simplified keys
-    const a1 = (answers[1] || '').toLowerCase();
-    const a2 = (answers[2] || '').toLowerCase();
-    const a3 = (answers[3] || '').toLowerCase();
-    const a4 = answers[4] || '';
-    const a5 = answers[5] || '';
-
-    localStorage.setItem('diag_q1', a1.startsWith('sim') ? 'sim' : 'nao');
-    localStorage.setItem('diag_q2', a2.startsWith('sim') ? 'sim' : 'nao');
-    localStorage.setItem('diag_q3', a3.startsWith('sim') ? 'sim' : 'nao');
-    localStorage.setItem('diag_q4',
-      a4.includes('100.000') && !a4.includes('30.000') ? 'above100k' :
-      a4.includes('30.000') && a4.includes('100') ? '30k-100k' : 'below30k'
-    );
-    localStorage.setItem('diag_q5', a5.toLowerCase().includes('imediata') ? 'imediata' : 'medio-prazo');
-
-    // Persistir lead no CRM unificado (fire-and-forget, nunca bloqueia o funil)
+    localStorage.setItem('diag_q1', quizData.gargaloPrimario);
+    localStorage.setItem('diag_q2', quizData.dorValue);
+    localStorage.setItem('diag_q3', quizData.equipePorte);
+    localStorage.setItem('diag_q4', quizData.faturamento);
+    localStorage.setItem('diag_q5', quizData.intencao);
+    localStorage.setItem('diag_segment', quizData.segment);
+    localStorage.setItem('diag_gargalo_primario', quizData.gargaloPrimario);
+    localStorage.setItem('diag_intencao', quizData.intencao);
+    localStorage.setItem('diag_dor_score', String(quizData.dorScore));
+    localStorage.setItem('diag_equipe_porte', quizData.equipePorte);
+    localStorage.setItem('diag_faturamento', quizData.faturamento);
+    localStorage.setItem('diag_score', String(quizData.score));
+    localStorage.setItem('diag_gargalo', quizData.gargalo);
     (function persistLead() {
-      var CRM_QUIZ_ENDPOINT = 'https://crmerick.vercel.app/api/quiz-leads';
+      var CRM_QUIZ_ENDPOINT = window.CRM_QUIZ_ENDPOINT || 'https://crmerick.vercel.app/api/quiz-leads';
       try {
-        // Mesma logica de score do resultado.html (0 a 5 gargalos)
-        var f4 = localStorage.getItem('diag_q4');
-        var score = [
-          localStorage.getItem('diag_q1') === 'sim',
-          localStorage.getItem('diag_q2') === 'sim',
-          localStorage.getItem('diag_q3') === 'sim',
-          f4 === 'above100k' || f4 === '30k-100k',
-          localStorage.getItem('diag_q5') === 'imediata'
-        ].filter(Boolean).length;
-        var gargalo = score >= 4 ? 'critico' : score >= 2 ? 'atencao' : 'eficiente';
-
         var utm = {};
         new URLSearchParams(window.location.search).forEach(function (v, k) { utm[k] = v; });
-        fetch(CRM_QUIZ_ENDPOINT, {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json'
-          },
-          body: JSON.stringify({
-            name: name,
-            email: email,
-            external_id: email,
-            quiz_id: 'diagnostico-operacional-linkbio',
-            answers: { q1: a1, q2: a2, q3: a3, q4: a4, q5: a5, faixa: f4, urgencia: localStorage.getItem('diag_q5') },
-            gargalo: gargalo,
-            score: score,
-            source: 'linkbio',
-            utm: utm
-          }),
-          keepalive: true
-        }).catch(function () {});
+        fetch(CRM_QUIZ_ENDPOINT, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ name: name, email: email, external_id: email, quiz_id: 'diagnostico-operacional-linkbio-v2', answers: { q1: quizData.gargaloPrimario, q2: quizData.dorValue, q3: quizData.equipePorte, q4: quizData.faturamento, q5: quizData.intencao, segment: quizData.segment, dor_score: quizData.dorScore }, segment: quizData.segment, gargalo_primario: quizData.gargaloPrimario, intencao: quizData.intencao, dor_score: quizData.dorScore, equipe_porte: quizData.equipePorte, faturamento: quizData.faturamento, gargalo: quizData.gargaloPrimario, score: quizData.score, source: 'linkbio', utm: utm }), keepalive: true }).catch(function () {});
+        trackQuizEvent('QuizComplete', { gargalo: quizData.gargaloPrimario, score: quizData.score, segment: quizData.segment });
         if (window.fbq) fbq('track', 'Lead');
       } catch (e) {}
     })();
 
-    // Hide lead form, show loader
+    // Hide lead form, show loader    // Hide lead form, show loader
     document.getElementById('leadCapture').style.display = 'none';
     loaderContainer.style.display = 'flex';
 

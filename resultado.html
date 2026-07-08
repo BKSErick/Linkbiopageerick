@@ -385,6 +385,8 @@ src="https://www.facebook.com/tr?id=1175331711422463&ev=PageView&noscript=1"
     100%{transform:translateX(320%)}
   }
   .wa-btn:hover { transform:translateY(-3px);filter:brightness(1.05);box-shadow:0 16px 36px rgba(37,211,102,.42); }
+  .ostrack-btn { width:100%;display:none;align-items:center;justify-content:center;margin-top:12px;padding:15px;border-radius:14px;background:#10B981;color:#04110c;text-decoration:none;font-size:15px;font-weight:800;box-shadow:0 10px 26px rgba(16,185,129,.28); }
+  .ostrack-btn:hover { transform:translateY(-2px);filter:brightness(1.04); }
   .cta-note { font-size: 12px; color: var(--muted-2); margin-top: 14px; }
 
   /* ---------- FLOATING WA ---------- */
@@ -491,6 +493,7 @@ src="https://www.facebook.com/tr?id=1175331711422463&ev=PageView&noscript=1"
       <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><path d="M.057 24l1.687-6.163a11.867 11.867 0 01-1.587-5.945C.16 5.335 5.495 0 12.05 0a11.82 11.82 0 018.413 3.488 11.82 11.82 0 013.48 8.414c-.003 6.557-5.338 11.892-11.893 11.892a11.9 11.9 0 01-5.688-1.448L.057 24zM6.597 20.13c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884a9.82 9.82 0 001.519 5.26l-.999 3.648 3.97-1.207zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.501-.669-.51l-.57-.01c-.198 0-.52.074-.792.372s-1.04 1.016-1.04 2.479 1.065 2.876 1.213 3.074c.149.198 2.095 3.2 5.076 4.487.709.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.695.248-1.29.173-1.414z"/></svg>
       <span id="ctaBtnText">Falar com Erick no WhatsApp</span>
     </a>
+    <a class="ostrack-btn" id="ostrackCTABtn" href="https://o-strackpagina.vercel.app/?utm_source=quiz&utm_medium=cta&utm_campaign=linkbio" target="_blank" rel="noopener">Ver o OStrack em funcionamento</a>
     <p class="cta-note" id="ctaNote"></p>
   </div>
 
@@ -513,270 +516,50 @@ src="https://www.facebook.com/tr?id=1175331711422463&ev=PageView&noscript=1"
   }
 
   // ── READ LOCALSTORAGE ───────────────────────────────────────
-  const name  = localStorage.getItem('diag_name')  || 'Empresário';
-  const q1    = localStorage.getItem('diag_q1')    || 'nao';
-  const q2    = localStorage.getItem('diag_q2')    || 'nao';
-  const q3    = localStorage.getItem('diag_q3')    || 'nao';
-  const q4    = localStorage.getItem('diag_q4')    || 'below30k';
-  const q5    = localStorage.getItem('diag_q5')    || 'medio-prazo';
-
+  const name = localStorage.getItem('diag_name') || 'Empresario';
   const firstName = name.split(' ')[0];
-
-  // ── SCORE LOGIC ─────────────────────────────────────────────
-  // G1 – Digitação Manual
-  const g1Crit = q1 === 'sim';
-  // G2 – Sistemas Desconectados
-  const g2Crit = q2 === 'sim';
-  // G3 – Relatórios Manuais
-  const g3Crit = q3 === 'sim';
-  // G4 – Custo de Inação (faturamento ≥ 30k = gargalo ativo)
-  const g4Crit = q4 === 'above100k' || q4 === '30k-100k';
-  const g4Warn = q4 === 'below30k';
-  // G5 – Janela Competitiva (urgência imediata = gargalo ativo)
-  const g5Crit = q5 === 'imediata';
-
-  let score = [g1Crit, g2Crit, g3Crit, g4Crit, g5Crit].filter(Boolean).length;
-
-  // ── THEME ───────────────────────────────────────────────────
-  let dotColor, alertHTML, alertStyle, topLineStyle;
-  if (score >= 4) {
-    dotColor = '#ff3b3b';
-    alertHTML = '🔴 ALERTA CRÍTICO';
-    alertStyle = 'background:rgba(255,59,59,.15);color:#ff7070;border:1px solid rgba(255,59,59,.3);';
-    topLineStyle = 'background:linear-gradient(90deg,transparent,rgba(255,59,59,.6),transparent)';
-    document.body.classList.add('is-danger');
-  } else if (score >= 2) {
-    dotColor = '#f59b3c';
-    alertHTML = '🟡 ATENÇÃO OPERACIONAL';
-    alertStyle = 'background:rgba(245,155,60,.15);color:#f59b3c;border:1px solid rgba(245,155,60,.3);';
-    topLineStyle = 'background:linear-gradient(90deg,transparent,rgba(245,155,60,.6),transparent)';
-    document.body.classList.add('is-warning');
-  } else {
-    dotColor = '#34d27b';
-    alertHTML = '🟢 OPERAÇÃO EFICIENTE';
-    alertStyle = 'background:rgba(52,210,123,.12);color:#34d27b;border:1px solid rgba(52,210,123,.25);';
-    topLineStyle = 'background:linear-gradient(90deg,transparent,rgba(52,210,123,.6),transparent)';
-    document.body.classList.add('is-ok');
-  }
-
-  // Apply theme elements
-  document.getElementById('scoreTopLine').style.cssText = topLineStyle;
+  const segment = localStorage.getItem('diag_segment') || 'pme_servico';
+  const gargaloPrimario = localStorage.getItem('diag_gargalo_primario') || localStorage.getItem('diag_q1') || 'data_ops';
+  const intencao = localStorage.getItem('diag_intencao') || localStorage.getItem('diag_q5') || 'visibilidade_lucro';
+  const dorScore = Number(localStorage.getItem('diag_dor_score') || 0);
+  const equipePorte = localStorage.getItem('diag_equipe_porte') || localStorage.getItem('diag_q3') || 'micro';
+  const faturamento = localStorage.getItem('diag_faturamento') || localStorage.getItem('diag_q4') || 'below30k';
+  const score = Number(localStorage.getItem('diag_score') || 0);
+  const labels = { os_management: 'gestao de OS e historico de manutencao', data_ops: 'processos manuais e dados desconectados', client_acq: 'captacao e acompanhamento de clientes', financeiro: 'visibilidade de lucratividade em tempo real', controle_os: 'controle total das ordens de servico', automacao_captacao: 'automacao de captacao e follow-up', visibilidade_lucro: 'visibilidade de lucro e custos', industrial_b2b: 'operacao industrial B2B', pme_servico: 'PME de servicos', startup: 'operacao de crescimento/startup', micro: '1 a 5 pessoas', pequena: '6 a 20 pessoas', media: 'mais de 20 pessoas', below30k: 'abaixo de R$30.000/mes', '30k-150k': 'entre R$30.000 e R$150.000/mes', above150k: 'acima de R$150.000/mes' };
+  const primaryMap = { os_management: { title: 'Seu gargalo principal e gestao de OS e historico de manutencao.', action: 'Centralizar ordens de servico, prazos, tecnicos e historico dos equipamentos.', icon: 'OS' }, data_ops: { title: 'Seu gargalo principal e processos manuais e dados desconectados.', action: 'Eliminar retrabalho entre planilhas, sistemas e relatorios manuais.', icon: 'DA' }, client_acq: { title: 'Seu gargalo principal e captacao e acompanhamento de clientes.', action: 'Organizar CRM, follow-up e automacoes para nao perder lead quente.', icon: 'CRM' }, financeiro: { title: 'Seu gargalo principal e visibilidade de lucratividade em tempo real.', action: 'Conectar dados financeiros para decidir com margem, caixa e custo claros.', icon: 'BI' } };
+  const primary = primaryMap[gargaloPrimario] || primaryMap.data_ops;
+  const isIndustrialOS = gargaloPrimario === 'os_management' || segment === 'industrial_b2b' || intencao === 'controle_os';
+  const dotColor = score >= 4 ? '#ff3b3b' : score >= 2 ? '#f59b3c' : '#34d27b';
+  document.body.classList.add(score >= 4 ? 'is-danger' : score >= 2 ? 'is-warning' : 'is-ok');
+  document.getElementById('scoreTopLine').style.cssText = `background:linear-gradient(90deg,transparent,${dotColor},transparent)`;
   const alertBadge = document.getElementById('alertBadge');
-  alertBadge.textContent = alertHTML;
-  alertBadge.style.cssText = alertStyle;
-
-  // Score main number
-  const scoreMainEl = document.getElementById('scoreMain');
-  scoreMainEl.textContent = score;
-  scoreMainEl.style.color = dotColor;
-
-  // Score dots
+  alertBadge.textContent = score >= 4 ? 'ALERTA CRITICO' : score >= 2 ? 'ATENCAO OPERACIONAL' : 'OPORTUNIDADE MAPEADA';
+  alertBadge.style.cssText = `background:${score >= 4 ? 'rgba(255,59,59,.15)' : score >= 2 ? 'rgba(245,155,60,.15)' : 'rgba(52,210,123,.12)'};color:${dotColor};border:1px solid ${dotColor};`;
+  document.getElementById('scoreMain').textContent = score;
+  document.getElementById('scoreMain').style.color = dotColor;
   const dotsEl = document.getElementById('scoreDots');
-  for (let i = 0; i < 5; i++) {
-    const dot = document.createElement('div');
-    dot.className = 'score-dot' + (i < score ? ' on' : '');
-    if (i < score) dot.style.setProperty('--dot-color', dotColor);
-    dotsEl.appendChild(dot);
-  }
-
-  // AI badge
-  const secs = Math.floor(Math.random() * 3) + 2;
-  document.getElementById('aiBadgeText').textContent = `Análise gerada por IA · ${secs}s · AIOS Operational v2.1`;
-
-  // ── HEADLINE (typewriter effect) ────────────────────────────
-  const headlineMap = {
-    5: `Diagnóstico Crítico: ${firstName}, sua empresa está operando no limite do manual.`,
-    4: `Alerta Operacional, ${firstName}: 4 gargalos ativos comprometem a sua escala.`,
-    3: `${firstName}, identificamos 3 gargalos que drenam receita todos os meses.`,
-    2: `${firstName}, 2 pontos de ineficiência identificados. Pequenos, mas custosos.`,
-    1: `${firstName}, 1 ponto de atenção detectado. Mínimo na superfície, impacto real.`,
-    0: `${firstName}, sua operação está acima da média. Vamos conversar sobre o próximo nível.`
-  };
-  const subMap = {
-    5: 'Cinco categorias de ineficiência ativas ao mesmo tempo. Esse é o perfil de empresa que cresce no braço e eventualmente quebra o braço.',
-    4: 'Quatro pontos de atrito operacional identificados. Cada um tem solução técnica definida. A pergunta é: quando você resolve.',
-    3: 'Três gargalos verificados. Sua empresa não está afundando, está pagando um pedágio invisível de ineficiência todo mês.',
-    2: 'Dois pontos de melhoria identificados. Você está à frente da concorrência, mas há vazamentos na operação.',
-    1: 'Um ponto de atenção. Operação sólida com espaço de otimização imediata.',
-    0: 'Nenhum gargalo crítico identificado. Você já entende de sistemas. A conversa agora é sobre aceleração, não remediação.'
-  };
-
-  const headlineText = headlineMap[score] || headlineMap[0];
-  const subText = subMap[score] || subMap[0];
-
-  // Typewriter on headline for AI feel
-  const headlineEl = document.getElementById('diagHeadline');
-  function typeWriter(el, text, speed = 22) {
-    el.textContent = '';
-    let i = 0;
-    const t = setInterval(() => {
-      if (i < text.length) { el.textContent += text[i]; i++; }
-      else clearInterval(t);
-    }, speed);
-  }
-  setTimeout(() => typeWriter(headlineEl, headlineText), 400);
-  document.getElementById('diagSub').textContent = subText;
-
-  // ── GARGALO CARDS DATA ─────────────────────────────────────
-  const q4Label = q4 === 'above100k'
-    ? 'Acima de R$ 100.000/mês'
-    : q4 === '30k-100k'
-      ? 'Entre R$ 30.000 e R$ 100.000/mês'
-      : 'Abaixo de R$ 30.000/mês';
-
-  const gargalos = [
-    {
-      crit: g1Crit,
-      icon: g1Crit ? '⌨️' : '✅',
-      cardClass: g1Crit ? 'crit' : 'good',
-      title: g1Crit ? 'Retrabalho Manual Crítico' : 'Extração de Dados Automatizada',
-      badge: g1Crit ? 'Gargalo Ativo' : 'Sob Controle',
-      badgeClass: g1Crit ? 'b-crit' : 'b-good',
-      desc: g1Crit
-        ? 'Sua equipe está sendo paga para copiar e colar dados entre sistemas. Um script de automação resolve em 2 dias o que custa R$ 3.000 a R$ 8.000/mês em horas CLT desperdiçadas. Isso não é trabalho, é custo mascarado de back-office.'
-        : 'Fluxo de dados automatizado. Você está à frente de 83% do mercado neste ponto. Mantenha o padrão e avance para automação de decisão.',
-      action: g1Crit ? '→ Automação OCR + integração via API' : null,
-    },
-    {
-      crit: g2Crit,
-      icon: g2Crit ? '🔌' : '✅',
-      cardClass: g2Crit ? 'crit' : 'good',
-      title: g2Crit ? 'Ilhas de Dados Isoladas' : 'Integração de Sistemas Funcional',
-      badge: g2Crit ? 'Gargalo Ativo' : 'Sob Controle',
-      badgeClass: g2Crit ? 'b-crit' : 'b-good',
-      desc: g2Crit
-        ? 'Seus sistemas não se conversam e humanos estão fazendo o papel de API manual. Enquanto sua equipe transfere dados entre plataformas, contratos estão sendo fechados por concorrentes que já automatizaram esse fluxo inteiro.'
-        : 'Sistemas integrados detectados. Esse é o padrão mínimo para operar com eficiência. Próximo nível: automação de decisão cruzando dados de múltiplas fontes em tempo real.',
-      action: g2Crit ? '→ Integração via n8n / Make + webhooks nativos' : null,
-    },
-    {
-      crit: g3Crit,
-      icon: g3Crit ? '📊' : '✅',
-      cardClass: g3Crit ? 'crit' : 'good',
-      title: g3Crit ? 'Decisões Operando no Escuro' : 'Visibilidade Operacional em Tempo Real',
-      badge: g3Crit ? 'Gargalo Ativo' : 'Sob Controle',
-      badgeClass: g3Crit ? 'b-crit' : 'b-good',
-      desc: g3Crit
-        ? 'Você está tomando decisões de crescimento olhando para números de ontem, gerados por alguém que passou 3 horas no Excel. Dashboard em tempo real não é luxo, é o mínimo aceitável de gestão.'
-        : 'Dashboards em tempo real identificados. Decisão baseada em dado real, esse é o padrão certo. A próxima conversa é sobre inteligência preditiva: antecipar gargalos antes que apareçam.',
-      action: g3Crit ? '→ Dashboard integrado ao banco de dados em tempo real' : null,
-    },
-    {
-      crit: g4Crit,
-      icon: q4 === 'above100k' ? '💸' : q4 === '30k-100k' ? '💸' : '🏗️',
-      cardClass: g4Crit ? (q4 === 'above100k' ? 'crit' : 'warn') : 'warn',
-      title: q4 === 'above100k'
-        ? 'Vazamento Crítico de Capital'
-        : q4 === '30k-100k'
-          ? 'Custo Operacional Oculto'
-          : 'Base em Fase de Estruturação',
-      badge: q4 === 'above100k' ? 'Custo Crítico' : q4 === '30k-100k' ? 'Custo Identificado' : 'Fase Inicial',
-      badgeClass: q4 === 'above100k' ? 'b-crit' : 'b-warn',
-      desc: q4 === 'above100k'
-        ? 'No seu nível de faturamento, cada gargalo não automatizado representa R$ 20.000 a R$ 40.000/mês em custo de oportunidade. Esse dinheiro existe, está sendo drenado pela ineficiência, não pelo mercado.'
-        : q4 === '30k-100k'
-          ? 'Ineficiência operacional no seu faturamento custa entre R$ 5.000 e R$ 15.000/mês em horas desperdiçadas. Capital que poderia ir para crescimento está financiando retrabalho invisível.'
-          : 'Na fase de estruturação, cada real conta duas vezes. Automatizar agora é mais barato do que contratar depois. Escala sem sistema é caos com CNPJ.',
-      action: q4 === 'below30k'
-        ? '→ Arquitetura de base operacional escalável desde o início'
-        : '→ Mapeamento de custo de inação operacional',
-    },
-    {
-      crit: g5Crit,
-      icon: g5Crit ? '⏱️' : '🎯',
-      cardClass: g5Crit ? 'crit' : 'warn',
-      title: g5Crit ? 'Janela de Oportunidade Fechando' : 'Horizonte de Implementação Planejado',
-      badge: g5Crit ? 'Urgência Alta' : 'Prazo Médio',
-      badgeClass: g5Crit ? 'b-crit' : 'b-warn',
-      desc: g5Crit
-        ? 'Você sinalizou urgência imediata e a análise operacional confirma. O tempo que você passa avaliando é o mesmo que seu concorrente usa implementando. Janela real: 15 a 30 dias para o primeiro sistema rodando em produção.'
-        : '3 meses é prazo suficiente para uma arquitetura completa, mas só se o planejamento começar agora. Cada mês de atraso é receita perdida mantida artificialmente pela ineficiência não resolvida.',
-      action: g5Crit
-        ? '→ Onboarding em 15 dias: mapeamento + protótipo + implementação'
-        : '→ Roadmap de 90 dias: arquitetura completa em fases',
-    },
-  ];
-
-  // ── RENDER GARGALO CARDS ────────────────────────────────────
+  for (let i = 0; i < 5; i++) { const dot = document.createElement('div'); dot.className = 'score-dot' + (i < score ? ' on' : ''); if (i < score) dot.style.setProperty('--dot-color', dotColor); dotsEl.appendChild(dot); }
+  document.getElementById('aiBadgeText').textContent = 'Analise gerada por IA - Quiz Operacional v2';
+  document.getElementById('diagHeadline').textContent = `${firstName}, ${primary.title}`;
+  document.getElementById('diagSub').textContent = 'Operacoes com o perfil que voce descreveu perdem em media entre 8 e 15 horas por semana em trabalho manual que pode ser eliminado.';
+  const cards = [ { icon: primary.icon, title: primary.title, badge: 'Gargalo principal', desc: primary.action, action: `Prioridade declarada: ${labels[intencao] || intencao}.`, cardClass: score >= 4 ? 'crit' : 'warn', badgeClass: score >= 4 ? 'b-crit' : 'b-warn' }, { icon: 'CUSTO', title: dorScore >= 2 ? 'Dor recorrente toda semana' : dorScore === 1 ? 'Dor recorrente algumas vezes por mes' : 'Dor menos frequente, mas ainda cara', badge: `Dor ${dorScore}/2`, desc: 'A pergunta de custo mostrou a frequencia com que informacao ausente trava decisao, pedido ou atendimento.', action: 'Quanto mais recorrente, mais rapido a automacao se paga.', cardClass: dorScore >= 2 ? 'crit' : 'warn', badgeClass: dorScore >= 2 ? 'b-crit' : 'b-warn' }, { icon: 'TIME', title: `Operacao com ${labels[equipePorte] || equipePorte}`, badge: labels[segment] || segment, desc: `Faixa de faturamento informada: ${labels[faturamento] || faturamento}.`, action: 'Esse contexto define se a solucao deve ser piloto rapido, automacao DFY ou sistema dedicado.', cardClass: 'good', badgeClass: 'b-good' } ];
   const grid = document.getElementById('gargaloGrid');
-  gargalos.forEach((g, i) => {
-    const card = document.createElement('div');
-    card.className = `gargalo-card ${g.cardClass}`;
-    card.innerHTML = `
-      <div class="g-icon">${g.icon}</div>
-      <div class="g-body">
-        <div class="g-header">
-          <div class="g-title">${g.title}</div>
-          <span class="g-badge ${g.badgeClass}">${g.badge}</span>
-        </div>
-        <p class="g-desc">${g.desc}</p>
-        ${g.action ? `<div class="g-action">${g.action}</div>` : ''}
-      </div>
-    `;
-    grid.appendChild(card);
-
-    // Staggered entrance
-    setTimeout(() => card.classList.add('visible'), 300 + i * 100);
-  });
-
-  // ── INSIGHT ─────────────────────────────────────────────────
-  const insights = {
-    high: {
-      icon: '🔍',
-      title: 'A leitura franca da sua operação.',
-      body: `Empresas com esse perfil estão pagando um custo invisível todos os meses. Não é drama, é matemática. Cada hora humana gasta em tarefa repetitiva é uma linha de código que você ainda não escreveu. A solução não é contratar mais gente. É parar de usar gente onde deveria ter sistema.`
-    },
-    mid: {
-      icon: '🔎',
-      title: 'O que os números revelam.',
-      body: `Você tem uma base razoável. Mas razoável não escala, eficiente escala. Os gargalos identificados são pontos onde seu time está sendo usado como middleware humano entre sistemas que deveriam se comunicar automaticamente. O custo não aparece na folha de pagamento direto. Aparece no crescimento que não vem.`
-    },
-    low: {
-      icon: '✨',
-      title: 'Você já está à frente.',
-      body: `Estrutura operacional acima da média do mercado. Isso significa que a conversa agora não é de remediação, é de aceleração. Onde você pode ir mais rápido? Onde ainda tem custo de oportunidade escondido? Essas são as perguntas certas para o próximo nível.`
-    }
-  };
-
-  const iKey = score >= 4 ? 'high' : score >= 2 ? 'mid' : 'low';
-  document.getElementById('insightIcon').textContent = insights[iKey].icon;
-  document.getElementById('insightTitle').textContent = insights[iKey].title;
-  document.getElementById('insightBody').textContent = insights[iKey].body;
-
-  // ── CTA ─────────────────────────────────────────────────────
-  const isImmediate = q5 === 'imediata';
-
-  if (isImmediate) {
-    document.getElementById('ctaTitle').textContent = score >= 3
-      ? 'Pronto para eliminar esses gargalos nos próximos 30 dias?'
-      : 'Quer otimizar antes do seu concorrente agir?';
-    document.getElementById('ctaSub').textContent = 'Disponibilidade de implementação limitada este mês. A conversa inicial é sem compromisso, o diagnóstico já foi feito.';
-    document.getElementById('ctaBtnText').textContent = 'Quero começar agora';
-    document.getElementById('ctaNote').textContent = 'Resposta em até 2 horas em horário comercial.';
-  } else {
-    document.getElementById('ctaTitle').textContent = 'Vamos planejar a arquitetura da sua operação?';
-    document.getElementById('ctaSub').textContent = 'Marque uma conversa para mapear os próximos 90 dias. Sem pitch, sem pressão, só estratégia operacional.';
-    document.getElementById('ctaBtnText').textContent = 'Agendar conversa com Erick';
-    document.getElementById('ctaNote').textContent = 'Primeira conversa gratuita. Sem compromisso.';
-  }
-
-  // ── WHATSAPP DYNAMIC MESSAGE ────────────────────────────────
+  cards.forEach((g, i) => { const card = document.createElement('div'); card.className = `gargalo-card ${g.cardClass}`; card.innerHTML = `<div class="g-icon">${g.icon}</div><div class="g-body"><div class="g-header"><div class="g-title">${g.title}</div><span class="g-badge ${g.badgeClass}">${g.badge}</span></div><p class="g-desc">${g.desc}</p><div class="g-action">${g.action}</div></div>`; grid.appendChild(card); setTimeout(() => card.classList.add('visible'), 300 + i * 100); });
+  document.getElementById('insightIcon').textContent = isIndustrialOS ? 'OS' : 'IA';
+  document.getElementById('insightTitle').textContent = isIndustrialOS ? 'O gargalo e operacional, nao so digital.' : 'A oportunidade e transformar rotina manual em sistema.';
+  document.getElementById('insightBody').textContent = isIndustrialOS ? 'Quando OS, historico e tecnico ficam soltos, a empresa perde prazo, margem e confianca. O primeiro passo e tirar a gestao da memoria da equipe e colocar em um sistema rastreavel.' : 'O padrao das suas respostas indica custo operacional escondido. A solucao mais eficiente e mapear o fluxo, automatizar o que e repetitivo e deixar humanos onde ha decisao.';
+  document.getElementById('ctaTitle').textContent = 'Quero ver o diagnostico completo no WhatsApp';
+  document.getElementById('ctaSub').textContent = 'A conversa ja chega com gargalo, porte, faturamento e prioridade. Sem pitch generico.';
+  document.getElementById('ctaBtnText').textContent = 'Quero ver o diagnostico completo no WhatsApp';
+  document.getElementById('ctaNote').textContent = isIndustrialOS ? 'Se o seu gargalo for OS industrial, o OStrack aparece como referencia secundaria abaixo.' : 'O proximo passo e uma conversa curta para transformar esse mapa em plano de implementacao.';
   const phone = '5531991072407';
-  const reportLines = [
-    q1 === 'sim' ? '• Digitação manual: Sim (gargalo ativo)' : '• Digitação manual: Não',
-    q2 === 'sim' ? '• Sistemas desconectados: Sim (gargalo ativo)' : '• Sistemas desconectados: Não',
-    q3 === 'sim' ? '• Relatórios manuais: Sim (gargalo ativo)' : '• Relatórios manuais: Não',
-    `• Faturamento: ${q4Label}`,
-    `• Urgência: ${isImmediate ? 'Imediata (próximos 30 dias)' : 'Médio prazo (3 meses)'}`
-  ].join('\n');
-
-  const waMsg = isImmediate
-    ? `Olá Erick! Fiz o Diagnóstico Operacional agora e identifiquei ${score} gargalo(s) crítico(s) na minha operação.\n\nNome: ${name}\n\nDetalhes:\n${reportLines}\n\nQuero agir nos próximos 30 dias. Quando você tem agenda para conversar?`
-    : `Olá Erick! Completei o Diagnóstico Operacional. Identifiquei ${score} ponto(s) de atenção na minha empresa.\n\nNome: ${name}\n\nDetalhes:\n${reportLines}\n\nQuero entender como estruturar a arquitetura. Podemos marcar uma conversa?`;
-
+  const reportLines = [ `Gargalo principal: ${labels[gargaloPrimario] || gargaloPrimario}`, `Segmento: ${labels[segment] || segment}`, `Porte da equipe: ${labels[equipePorte] || equipePorte}`, `Faturamento: ${labels[faturamento] || faturamento}`, `Intencao: ${labels[intencao] || intencao}`, `Score: ${score}/5` ].join('\n');
+  const waMsg = `Oi Erick, completei o diagnostico operacional. Meu principal gargalo e ${labels[gargaloPrimario] || gargaloPrimario}. Faturamos ${labels[faturamento] || faturamento} e somos uma equipe de ${labels[equipePorte] || equipePorte}. Quero entender como resolver isso.\n\n${reportLines}`;
   const waURL = `https://wa.me/${phone}?text=${encodeURIComponent(waMsg)}`;
   document.getElementById('waCTABtn').href = waURL;
   document.getElementById('floatWA').href = waURL;
-</script>
+  const ostrackBtn = document.getElementById('ostrackCTABtn');
+  if (isIndustrialOS) { ostrackBtn.style.display = 'flex'; ostrackBtn.addEventListener('click', function () { if (window.fbq) window.fbq('trackCustom', 'OStrackCTAClick', { gargalo: gargaloPrimario, segment: segment }); }); }
+</script></script></script>
 </body>
 </html>
