@@ -21,9 +21,9 @@ src="https://www.facebook.com/tr?id=1175331711422463&ev=PageView&noscript=1"
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>Erick Sena · AI Architect & SaaS Builder</title>
-<meta name="description" content="Construo ativos digitais e desenho a arquitetura operacional de PMEs." />
-<meta property="og:title" content="Erick Sena · AI Architect & SaaS Builder" />
-<meta property="og:description" content="Construo ativos digitais e desenho a arquitetura operacional de PMEs." />
+<meta name="description" content="Automatizo processos, crio sistemas e transformo operações manuais em ativos digitais escaláveis para PMEs." />
+<meta property="og:title" content="Erick Sena · AI Architect &amp; SaaS Builder" />
+<meta property="og:description" content="Automatizo processos, crio sistemas e transformo operações manuais em ativos digitais escaláveis para PMEs." />
 <meta property="og:image" content="assets/foto-erick.png" />
 <meta name="theme-color" content="#0a0a0b" />
 <link rel="icon" href="assets/foto-erick.png" />
@@ -154,13 +154,12 @@ src="https://www.facebook.com/tr?id=1175331711422463&ev=PageView&noscript=1"
   .card-body{flex:1;min-width:0}
   .card-title{font-size:16px;font-weight:700;display:flex;align-items:center;gap:8px}
   .card-sub{font-size:13px;color:var(--muted);margin-top:3px}
-  .chev{color:var(--c);opacity:.8;flex-shrink:0;transition:transform .18s ease}
-  .card:hover .chev{transform:translateX(3px);opacity:1}
+  .chev{color:var(--muted-2);opacity:.8;flex-shrink:0;transition:transform .18s ease}
+  .card:hover .chev{transform:translateX(3px);opacity:1;color:var(--c)}
   .badge{
     font-size:10px;font-weight:700;letter-spacing:.04em;text-transform:uppercase;
     padding:3px 7px;border-radius:999px;background:rgba(255,160,0,.14);color:#ffb733;
   }
-  .chev{color:var(--muted-2);flex-shrink:0}
 
   /* ---------- WHATSAPP CTA ---------- */
   .wa-btn{
@@ -182,25 +181,56 @@ src="https://www.facebook.com/tr?id=1175331711422463&ev=PageView&noscript=1"
   .wa-btn:active{transform:translateY(0)}
 
   /* ---------- SOCIAL ---------- */
-  .social{display:flex;gap:14px;margin-top:26px}
+  .social{display:flex;gap:12px;margin-top:26px;justify-content:center}
   .social a{
-    width:46px;height:46px;border-radius:14px;
-    display:grid;place-items:center;color:var(--text);
+    display:flex;flex-direction:column;align-items:center;gap:5px;
+    padding:10px 14px;border-radius:14px;color:var(--muted);
     background:var(--card);border:1px solid var(--rule);
-    transition:transform .15s ease,background .15s ease,border-color .15s ease;
+    text-decoration:none;
+    transition:transform .15s ease,background .15s ease,border-color .15s ease,color .15s ease;
   }
-  .social a:hover{transform:translateY(-3px);background:var(--card-hover);border-color:rgba(255,255,255,.18)}
+  .social a:hover{transform:translateY(-3px);background:var(--card-hover);border-color:rgba(255,255,255,.18);color:var(--text)}
+  .social-label{font-size:10px;font-weight:600;letter-spacing:.03em;white-space:nowrap}
 
   /* ---------- ABOUT ---------- */
   .about{
-    width:100%;margin-top:8px;text-align:center;
+    width:100%;margin-top:8px;text-align:left;
     background:linear-gradient(180deg,rgba(255,255,255,.03),rgba(255,255,255,0));
     border:1px solid var(--rule);border-radius:var(--radius);padding:22px 20px;
   }
-  .about h3{font-size:16px;font-weight:800;letter-spacing:-.01em}
-  .about p{font-size:14px;color:var(--muted);margin-top:8px}
+  .about h3{font-size:16px;font-weight:800;letter-spacing:-.01em;text-align:center}
+  .about p{font-size:14px;color:var(--muted);margin-top:10px;line-height:1.7;text-align:center}
   .about .pillars{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;margin-top:16px}
   .pill{font-size:12px;font-weight:600;color:var(--muted);padding:6px 12px;border-radius:999px;background:var(--bg-soft);border:1px solid var(--rule)}
+
+  /* ---------- CTA FINAL ---------- */
+  .cta-final{
+    width:100%;display:flex;flex-direction:column;gap:12px;margin-top:4px;
+  }
+  .btn-diag{
+    position:relative;overflow:hidden;
+    width:100%;display:flex;align-items:center;justify-content:center;gap:10px;
+    background:linear-gradient(135deg,#00f0ff,#0090ff);color:#040e14;
+    text-decoration:none;font-size:16px;font-weight:800;letter-spacing:-.01em;
+    padding:17px;border-radius:var(--radius);
+    box-shadow:0 10px 30px rgba(0,240,255,.25);
+    transition:transform .15s ease,box-shadow .15s ease,filter .15s ease;
+  }
+  .btn-diag::after{
+    content:"";position:absolute;top:0;bottom:0;left:0;width:55%;
+    background:linear-gradient(110deg,transparent,rgba(255,255,255,.45),transparent);
+    transform:translateX(-180%);animation:sweep 3.2s ease-in-out infinite;
+  }
+  .btn-diag:hover{transform:translateY(-2px);filter:brightness(1.06);box-shadow:0 14px 36px rgba(0,240,255,.4)}
+  .btn-wa-outline{
+    width:100%;display:flex;align-items:center;justify-content:center;gap:10px;
+    background:transparent;color:var(--wa);
+    text-decoration:none;font-size:15px;font-weight:700;
+    padding:14px;border-radius:var(--radius);
+    border:1.5px solid rgba(37,211,102,.35);
+    transition:background .15s ease,border-color .15s ease,transform .15s ease;
+  }
+  .btn-wa-outline:hover{background:rgba(37,211,102,.07);border-color:var(--wa);transform:translateY(-2px)}
 
   /* ---------- FAQ ---------- */
   .faq{width:100%;display:flex;flex-direction:column;gap:10px}
@@ -390,10 +420,24 @@ src="https://www.facebook.com/tr?id=1175331711422463&ev=PageView&noscript=1"
   </div>
   <div class="role">AI Architect &amp; SaaS Builder</div>
   <p class="bio">
-    <b>Construo ativos digitais e desenho a arquitetura operacional de PMEs.</b>
+    Ajudo PMEs a trocar <b>planilhas, retrabalho e processos manuais</b> por sistemas, automações e SaaS sob medida.
   </p>
 
-  <!-- SAAS -->
+  <!-- DIAGNOSTICO (funil principal — primeiro acima da dobra) -->
+  <div class="section-label">Diagnóstico &amp; Escala</div>
+  <nav class="links">
+    <!-- Quiz -->
+    <a class="card met" style="--c:#00f0ff;--c-soft:rgba(0,240,255,.16);--c-glow:rgba(0,240,255,.4)" href="quiz.html">
+      <div class="ico" style="background:linear-gradient(145deg,#00f0ff,#00b0ff);color:#0a0a0b">📊</div>
+      <div class="card-body">
+        <div class="card-title">Diagnóstico Operacional <span class="badge" style="background:rgba(0,240,255,.14);color:#00f0ff">Grátis</span></div>
+        <div class="card-sub">Receba um caminho claro para automatizar o que mais trava sua operação — em 1 minuto</div>
+      </div>
+      <svg class="chev" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 18l6-6-6-6"/></svg>
+    </a>
+  </nav>
+
+  <!-- SAAS (produto ativo — segundo) -->
   <div class="section-label">SaaS · Produtos</div>
   <nav class="links">
     <!-- OStrack -->
@@ -407,29 +451,15 @@ src="https://www.facebook.com/tr?id=1175331711422463&ev=PageView&noscript=1"
     </a>
   </nav>
 
-  <!-- DIAGNOSTICO -->
-  <div class="section-label">Diagnóstico &amp; Escala</div>
-  <nav class="links">
-    <!-- Quiz -->
-    <a class="card met" style="--c:#00f0ff;--c-soft:rgba(0,240,255,.16);--c-glow:rgba(0,240,255,.4)" href="quiz.html">
-      <div class="ico" style="background:linear-gradient(145deg,#00f0ff,#00b0ff);color:#0a0a0b">📊</div>
-      <div class="card-body">
-        <div class="card-title">Diagnóstico Operacional <span class="badge" style="background:rgba(0,240,255,.14);color:#00f0ff">Grátis</span></div>
-        <div class="card-sub">Descubra em 1 minuto os gargalos operacionais da sua empresa</div>
-      </div>
-      <svg class="chev" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 18l6-6-6-6"/></svg>
-    </a>
-  </nav>
-
-  <!-- SITES -->
-  <div class="section-label">Sites &amp; Landing Pages</div>
+  <!-- SITES (prova social / cases — terceiro) -->
+  <div class="section-label">Cases · Sites Entregues</div>
   <nav class="links">
     <!-- GT House -->
     <a class="card gth" href="https://gthouse.vercel.app" target="_blank" rel="noopener">
       <div class="ico gth">GT</div>
       <div class="card-body">
         <div class="card-title">GT House</div>
-        <div class="card-sub">Espaço de experiências e eventos B2B</div>
+        <div class="card-sub">Presença digital B2B · landing page de conversão para espaço de eventos</div>
       </div>
       <svg class="chev" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 18l6-6-6-6"/></svg>
     </a>
@@ -439,7 +469,7 @@ src="https://www.facebook.com/tr?id=1175331711422463&ev=PageView&noscript=1"
       <div class="ico via">VB</div>
       <div class="card-body">
         <div class="card-title">Via Br Cenografia</div>
-        <div class="card-sub">Cenografia e estandes sob medida</div>
+        <div class="card-sub">Ativo digital publicado · site institucional B2B para operação de estandes</div>
       </div>
       <svg class="chev" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 18l6-6-6-6"/></svg>
     </a>
@@ -449,28 +479,21 @@ src="https://www.facebook.com/tr?id=1175331711422463&ev=PageView&noscript=1"
       <div class="ico met">MT</div>
       <div class="card-body">
         <div class="card-title">Metalthec</div>
-        <div class="card-sub">Metalurgia e soluções industriais</div>
+        <div class="card-sub">Site industrial completo · geração de leads para metalurgia e soluções B2B</div>
       </div>
       <svg class="chev" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 18l6-6-6-6"/></svg>
     </a>
   </nav>
 
-  <!-- CONTATO -->
-  <div class="section-label">Vamos conversar</div>
-  <div class="links">
-    <a class="wa-btn" href="https://wa.me/5531991072407?text=Ol%C3%A1%20Erick!%20Cheguei%20pelo%20seu%20link%20na%20bio." target="_blank" rel="noopener">
-      <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><path d="M.057 24l1.687-6.163a11.867 11.867 0 01-1.587-5.945C.16 5.335 5.495 0 12.05 0a11.82 11.82 0 018.413 3.488 11.82 11.82 0 013.48 8.414c-.003 6.557-5.338 11.892-11.893 11.892a11.9 11.9 0 01-5.688-1.448L.057 24zM6.597 20.13c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884a9.82 9.82 0 001.519 5.26l-.999 3.648 3.97-1.207zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.501-.669-.51l-.57-.01c-.198 0-.52.074-.792.372s-1.04 1.016-1.04 2.479 1.065 2.876 1.213 3.074c.149.198 2.095 3.2 5.076 4.487.709.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.695.248-1.29.173-1.414z"/></svg>
-      Falar no WhatsApp
-    </a>
-  </div>
-
-  <!-- REDES -->
+  <!-- REDES (apenas ícones com label de contexto) -->
   <div class="social">
-    <a href="https://www.instagram.com/euericksena/" target="_blank" rel="noopener" aria-label="Instagram">
+    <a href="https://www.instagram.com/euericksena/" target="_blank" rel="noopener" aria-label="Instagram — bastidores e insights">
       <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg>
+      <span class="social-label">Bastidores</span>
     </a>
-    <a href="https://www.behance.net/Erick_SenaTv" target="_blank" rel="noopener" aria-label="Behance">
+    <a href="https://www.behance.net/Erick_SenaTv" target="_blank" rel="noopener" aria-label="Behance — portfólio visual">
       <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><path d="M22 7h-7V5h7v2zm1.726 10c-.442 1.297-2.029 3-5.101 3-3.074 0-5.564-1.729-5.564-5.675 0-3.91 2.325-5.92 5.466-5.92 3.082 0 4.964 1.782 5.375 4.426.078.506.109 1.188.095 2.14H15.97c.13 3.211 3.483 3.312 4.588 2.029h3.168zm-7.686-4h4.965c-.105-1.547-1.136-2.219-2.477-2.219-1.466 0-2.277.768-2.488 2.219zm-9.574 6.988H0V5.021h6.953c5.476.081 5.58 5.444 2.72 6.906 3.461 1.26 3.577 8.061-3.207 8.061zM3 11h3.584c2.508 0 2.906-3-.312-3H3v3zm3.391 3H3v3.016h3.341c3.055 0 2.868-3.016.05-3.016z"/></svg>
+      <span class="social-label">Portfólio</span>
     </a>
   </div>
 
@@ -479,7 +502,7 @@ src="https://www.facebook.com/tr?id=1175331711422463&ev=PageView&noscript=1"
   <div class="about">
     <h3>Engenharia de Ativos &amp; Escala Operacional. ⚙️</h3>
     <p>
-      Desenho a arquitetura lógica de PMEs. Minha missão é eliminar a ineficiência de planilhas manuais e processos burros através de sistemas autônomos, integrações via n8n/Make e SaaS sob medida. Se a sua equipe passa o dia digitando dados e gerenciando gambiarras operacionais, eu transformo o seu gargalo em um ativo digital estável.
+      Desenho a arquitetura lógica de PMEs. Minha missão é eliminar fluxos manuais, rotinas sem rastreabilidade e operações dependentes de planilha — substituindo tudo isso por sistemas autônomos, integrações via n8n/Make e SaaS sob medida. Se o seu time passa o dia transferindo dados entre telas, eu transformo esse gargalo em um ativo digital estável.
     </p>
     <div class="pillars">
       <span class="pill">SaaS &amp; Sistemas</span>
@@ -512,6 +535,23 @@ src="https://www.facebook.com/tr?id=1175331711422463&ev=PageView&noscript=1"
       <summary>Para que tipo de negócio você constrói essas soluções? <span class="plus"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12h14"/></svg></span></summary>
       <div class="ans">Startups, agências de alta escala e empresas prestadoras de serviço faturando R$ 30k+ a R$ 100k+/mês. Se o seu crescimento está travado porque seu time operacional passa horas copiando e colando informações de uma plataforma para outra, o seu negócio está pronto para as minhas soluções.</div>
     </details>
+    <details>
+      <summary>Preciso ter processos organizados para começar? <span class="plus"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12h14"/></svg></span></summary>
+      <div class="ans">Não. A maioria dos clientes chega exatamente porque os processos estão desorganizados. Essa é a etapa do Diagnóstico: mapear o que existe, identificar o que está custando dinheiro e definir o que será automatizado primeiro. Você não precisa ter a casa arrumada para chamar o arquiteto.</div>
+    </details>
+  </div>
+
+  <!-- CTA FINAL — fecha a jornada: Diagnóstico → WA -->
+  <div class="section-label">Próximo passo</div>
+  <div class="cta-final">
+    <a class="btn-diag" href="quiz.html">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+      Fazer o Diagnóstico Operacional
+    </a>
+    <a class="btn-wa-outline" href="https://wa.me/5531991072407?text=Ol%C3%A1%20Erick!%20Cheguei%20pelo%20seu%20link%20na%20bio%20e%20quero%20conversar." target="_blank" rel="noopener">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M.057 24l1.687-6.163a11.867 11.867 0 01-1.587-5.945C.16 5.335 5.495 0 12.05 0a11.82 11.82 0 018.413 3.488 11.82 11.82 0 013.48 8.414c-.003 6.557-5.338 11.892-11.893 11.892a11.9 11.9 0 01-5.688-1.448L.057 24zM6.597 20.13c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884a9.82 9.82 0 001.519 5.26l-.999 3.648 3.97-1.207zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.501-.669-.51l-.57-.01c-.198 0-.52.074-.792.372s-1.04 1.016-1.04 2.479 1.065 2.876 1.213 3.074c.149.198 2.095 3.2 5.076 4.487.709.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.695.248-1.29.173-1.414z"/></svg>
+      Falar direto no WhatsApp
+    </a>
   </div>
 
   <footer>
@@ -544,25 +584,25 @@ src="https://www.facebook.com/tr?id=1175331711422463&ev=PageView&noscript=1"
 
   // Social Proof Notifications logic
   const companies = [
-    "Logitech Brasil",
+    "Recuperadora Minas Gerais",
     "GTHouse Operações",
     "Metalúrgica Metalthec",
     "Via Br Cenografia",
     "Agência ScaleUp B2B",
-    "Alpha Business Academy",
-    "Soluções Industriais Flex",
-    "Startup OStrack Gestão",
-    "BKS Grow Sistemas",
-    "Backstagefy Hub"
+    "Distribuidora TechLog MG",
+    "Construtora Patrus Civil",
+    "Transportadora Velox Sul",
+    "Fábrica de Móveis Suprema",
+    "Indústria Flex Aço"
   ];
 
   const subtexts = [
     "realizou o Diagnóstico Operacional Grátis",
-    "mapeou seus gargalos operacionais",
-    "identificou 4 gargalos de digitação manual",
+    "identificou 3 gargalos de digitação manual",
     "integrou o faturamento automático via API",
-    "solicitou a arquitetura de banco de dados",
-    "economizou 12 horas semanais de back-office"
+    "eliminou planilhas e centralizou o back-office",
+    "solicitou a arquitetura do sistema operacional",
+    "economizou 14 horas semanais de retrabalho manual"
   ];
 
   const times = [
