@@ -143,6 +143,7 @@ src="https://www.facebook.com/tr?id=1175331711422463&ev=PageView&noscript=1"
   }
   .card:active{transform:translateY(-1px)}
   .card.disabled{opacity:.7;cursor:not-allowed;pointer-events:none}
+  .card.myd{--c:#f9d9b1;--c-soft:rgba(249,217,177,.16);--c-glow:rgba(249,217,177,.38)}
   .card.ost{--c:#34d27b;--c-soft:rgba(52,210,123,.16);--c-glow:rgba(52,210,123,.38)}
   .card.gth{--c:#b492ee;--c-soft:rgba(180,146,238,.18);--c-glow:rgba(180,146,238,.4)}
   .card.via{--c:#6ea8ff;--c-soft:rgba(110,168,255,.16);--c-glow:rgba(110,168,255,.4)}
@@ -162,6 +163,41 @@ src="https://www.facebook.com/tr?id=1175331711422463&ev=PageView&noscript=1"
     font-size:10px;font-weight:700;letter-spacing:.04em;text-transform:uppercase;
     padding:3px 7px;border-radius:999px;background:rgba(255,160,0,.14);color:#ffb733;
   }
+
+  /* ---------- CLIENT LOGO CAROUSEL ---------- */
+  .client-showcase{
+    width:100%;margin-top:14px;padding:14px 0 12px;overflow:hidden;
+    background:linear-gradient(135deg,rgba(249,217,177,.08),rgba(255,255,255,.015));
+    border:1px solid var(--rule);border-radius:var(--radius);
+  }
+  .client-kicker{
+    padding:0 16px 11px;font-size:11px;font-weight:700;letter-spacing:.12em;
+    text-transform:uppercase;color:var(--muted);
+  }
+  .logo-marquee{
+    overflow:hidden;outline:none;
+    -webkit-mask-image:linear-gradient(90deg,transparent,#000 9%,#000 91%,transparent);
+    mask-image:linear-gradient(90deg,transparent,#000 9%,#000 91%,transparent);
+  }
+  .logo-track{
+    display:flex;width:max-content;
+    animation:logo-scroll 24s linear infinite;
+    will-change:transform;
+  }
+  .logo-set{display:flex;gap:10px;padding-right:10px}
+  .logo-item{
+    width:118px;height:66px;flex:0 0 auto;padding:12px;
+    display:grid;place-items:center;
+    background:#101114;border:1px solid rgba(255,255,255,.08);border-radius:13px;
+  }
+  .logo-item.light{background:#f7f5f0;border-color:rgba(255,255,255,.18)}
+  .logo-item img{
+    display:block;max-width:100%;max-height:40px;width:auto;height:auto;
+    object-fit:contain;
+  }
+  .logo-marquee:hover .logo-track,
+  .logo-marquee:focus .logo-track{animation-play-state:paused}
+  @keyframes logo-scroll{to{transform:translateX(-50%)}}
 
   /* ---------- WHATSAPP CTA ---------- */
   .wa-btn{
@@ -278,6 +314,13 @@ src="https://www.facebook.com/tr?id=1175331711422463&ev=PageView&noscript=1"
   /* Reduced motion: keep gentle decorative loops, skip the entrance slide */
   @media (prefers-reduced-motion: reduce){
     .wrap > *,.links .card{animation-duration:.01s;animation-delay:0s}
+    .logo-marquee{
+      overflow-x:auto;scroll-snap-type:x proximity;
+      -webkit-mask-image:none;mask-image:none;
+    }
+    .logo-track{animation:none}
+    .logo-set[aria-hidden="true"]{display:none}
+    .logo-item{scroll-snap-align:start}
   }
 
   /* ---------- FLOATING WHATSAPP ---------- */
@@ -438,6 +481,46 @@ src="https://www.facebook.com/tr?id=1175331711422463&ev=PageView&noscript=1"
       <svg class="chev" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 18l6-6-6-6"/></svg>
     </a>
   </nav>
+
+  <!-- STARTUP -->
+  <div class="section-label">Nossa startup</div>
+  <nav class="links">
+    <!-- Mydrion -->
+    <a class="card myd" href="https://mydrion.vercel.app/" target="_blank" rel="noopener">
+      <div class="ico myd">MY</div>
+      <div class="card-body">
+        <div class="card-title">Mydrion</div>
+        <div class="card-sub">Nossa empresa de sistemas, sites e produtos digitais</div>
+      </div>
+      <svg class="chev" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 18l6-6-6-6"/></svg>
+    </a>
+  </nav>
+
+  <div class="client-showcase" aria-labelledby="mydrion-clients-title">
+    <div class="client-kicker" id="mydrion-clients-title">Clientes &amp; projetos Mydrion</div>
+    <div class="logo-marquee" tabindex="0" aria-label="Carrossel de clientes e projetos da Mydrion">
+      <div class="logo-track">
+        <div class="logo-set">
+          <div class="logo-item"><img src="assets/clients/bft.svg" alt="BFT" /></div>
+          <div class="logo-item"><img src="assets/clients/espaco-constru.svg" alt="Espaço Constru" /></div>
+          <div class="logo-item"><img src="assets/clients/gthouse.png" alt="GTHouse" /></div>
+          <div class="logo-item light"><img src="assets/clients/metaltech.png" alt="Metalthec" /></div>
+          <div class="logo-item"><img src="assets/clients/sphaus.svg" alt="SPhaus" /></div>
+          <div class="logo-item"><img src="assets/clients/viabr.svg" alt="Via BR" /></div>
+          <div class="logo-item"><img src="assets/clients/ostrack.svg" alt="OStrack" /></div>
+        </div>
+        <div class="logo-set" aria-hidden="true">
+          <div class="logo-item"><img src="assets/clients/bft.svg" alt="" /></div>
+          <div class="logo-item"><img src="assets/clients/espaco-constru.svg" alt="" /></div>
+          <div class="logo-item"><img src="assets/clients/gthouse.png" alt="" /></div>
+          <div class="logo-item light"><img src="assets/clients/metaltech.png" alt="" /></div>
+          <div class="logo-item"><img src="assets/clients/sphaus.svg" alt="" /></div>
+          <div class="logo-item"><img src="assets/clients/viabr.svg" alt="" /></div>
+          <div class="logo-item"><img src="assets/clients/ostrack.svg" alt="" /></div>
+        </div>
+      </div>
+    </div>
+  </div>
 
   <!-- SAAS (produto ativo — segundo) -->
   <div class="section-label">SaaS · Produtos</div>
