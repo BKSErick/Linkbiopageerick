@@ -176,9 +176,12 @@ src="https://www.facebook.com/tr?id=1175331711422463&ev=PageView&noscript=1"
   }
   .logo-marquee{
     overflow:hidden;outline:none;
+    scrollbar-width:none;
+    -ms-overflow-style:none;
     -webkit-mask-image:linear-gradient(90deg,transparent,#000 9%,#000 91%,transparent);
     mask-image:linear-gradient(90deg,transparent,#000 9%,#000 91%,transparent);
   }
+  .logo-marquee::-webkit-scrollbar{display:none}
   .logo-track{
     display:flex;width:max-content;
     animation:logo-scroll 24s linear infinite;
@@ -311,16 +314,10 @@ src="https://www.facebook.com/tr?id=1175331711422463&ev=PageView&noscript=1"
   .links .card:nth-child(3){animation-delay:.16s}
   .links .card:nth-child(4){animation-delay:.24s}
 
-  /* Reduced motion: keep gentle decorative loops, skip the entrance slide */
+  /* Reduced motion: skip entrance effects and keep the requested logo loop gentle */
   @media (prefers-reduced-motion: reduce){
     .wrap > *,.links .card{animation-duration:.01s;animation-delay:0s}
-    .logo-marquee{
-      overflow-x:auto;scroll-snap-type:x proximity;
-      -webkit-mask-image:none;mask-image:none;
-    }
-    .logo-track{animation:none}
-    .logo-set[aria-hidden="true"]{display:none}
-    .logo-item{scroll-snap-align:start}
+    .logo-track{animation-duration:36s}
   }
 
   /* ---------- FLOATING WHATSAPP ---------- */
